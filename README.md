@@ -8,4 +8,5 @@ Exercises I did while following The Odin Project
 
 -   the 4 boxes of images was not correct ie was not spaced correctly
 -   responsiveness was missing, had to chatgpt for it because did not know how to do it
+-   Below is result with boxes outlined. The final result does not have these boxes/borders.
     ![website result](landingpage/result.gif)
