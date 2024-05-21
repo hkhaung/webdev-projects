@@ -14,3 +14,5 @@ Exercises I did while following The Odin Project
 2. Rock Paper Scissors game
 
 -   to practice JS, nothing special (just an exercise)
+-   Below is result
+    ![website result](rockpaperscissors/result.png)
