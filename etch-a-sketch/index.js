@@ -101,6 +101,8 @@ function attachCellListeners() {
         col.addEventListener("mouseenter", function () {
             if (isDraw) {
                 col.style.backgroundColor = selectedColor;
+            } else {
+                col.style.backgroundColor = "white";
             }
         });
     });

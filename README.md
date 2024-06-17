@@ -16,3 +16,9 @@ Exercises I did while following The Odin Project
 -   to practice JS, nothing special (just an exercise)
 -   Below is result
     ![website result](rockpaperscissors/result.png)
+
+3. Etch-a-Sketch
+
+-   could be better styling and layout, only did the bare minimum
+-   Below is result
+    ![website result](etch-a-sketch/result.gif)
