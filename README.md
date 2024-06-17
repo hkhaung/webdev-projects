@@ -21,4 +21,4 @@ Exercises I did while following The Odin Project
 
 -   could be better styling and layout, only did the bare minimum
 -   Below is result
-    ![website result](etch-a-sketch/result.gif)
+    ![website result](etch-a-sketch/result.mp4)
