@@ -170,34 +170,43 @@ function doMath(stack) {
     let operand2 = stack.pop();
     let operator = stack.pop();
     let operand1 = stack.pop();
+    let result;
 
     switch (operator) {
         case "+":
-            stack.push(operand1 + operand2);
+            result = operand1 + operand2;
             break;
         case "−":
-            stack.push(operand1 - operand2);
+            result = operand1 - operand2;
             break;
         case "×":
-            stack.push(operand1 * operand2);
+            result = operand1 * operand2;
             break;
         case "÷":
-            if (operand) stack.push(operand1 / operand2);
+            if (operand2 === 0) {
+                displayErrorMessage(true, "Cannot divide by zero!");
+                stack.splice(0, stack.length);
+                return "0";
+            }
+            result = operand1 / operand2;
             break;
     }
+
     if (leftover_operator !== "=") {
         stack.push(leftover_operator);
     } else {
         stack.push(operator);
     }
-    return stack[0];
+
+    // result = result.toFixed(4);
+    stack.push(result);
+    return stack[0].toString();
 }
 
-// if operands:
 function addNumberToCurrentString(current_value, value) {
-    if (value === "0") {
-        return current_value;
-    } else if (current_value.length === 9) {
+    console.log("CURRENT VALUE IS", current_value);
+    if (current_value.length === 9) {
+        displayErrorMessage(true, "Number exceeds more than 9 characters!");
         return current_value;
     } else if (current_value === "0") {
         return "".concat(value);
@@ -216,7 +225,11 @@ function displayErrorMessage(show, message) {
         if (!error_message) {
             error_message = document.createElement("div");
             error_message.classList.add("error-message");
-            document.body.appendChild(error_message);
+            error_message.style["max-width"] = "400px";
+            error_message.style["margin-top"] = "20px";
+            error_message.style["text-align"] = "center";
+            let bodyChildren = document.body.children;
+            document.body.insertBefore(error_message, bodyChildren[bodyChildren.length - 2]);
         }
         error_message.textContent = message;
     } else if (error_message) {
@@ -227,16 +240,24 @@ function displayErrorMessage(show, message) {
 let stack = [];
 let current_value = "0"; // what we return or show in `result`
 let math_operator = null; // for actual math operators
+let currentOperatorElement = null; // To track the currently selected +-/* operator for background color
 
 const cols = document.querySelectorAll(".col");
 cols.forEach((col) => {
     col.addEventListener("click", () => {
-        console.log(stack);
+        displayErrorMessage(false);
+
         if (col.classList.contains("operator")) {
             let operator = col.textContent;
+
             switch (operator) {
                 case "AC":
                     current_value = clear();
+                    stack.splice(0, stack.length);
+                    break;
+                case "C":
+                    current_value = clear();
+                    col.textContent = "AC";
                     stack.splice(0, stack.length);
                     break;
                 case "+/-":
@@ -245,14 +266,31 @@ cols.forEach((col) => {
                 case "%":
                     current_value = modulo(current_value);
                     break;
-                default:
-                    if (!(math_operator === operator) && !math_operator) {
-                        stack.pop();
-                        stack.pop();
-                        math_operator = operator;
-                        stack.push(parseFloat(current_value));
-                        stack.push(math_operator);
+                case ".":
+                    if (!current_value.includes(".")) {
+                        current_value = current_value.concat(".");
                     }
+                    break;
+                default:
+                    if (currentOperatorElement && currentOperatorElement !== col) {
+                        currentOperatorElement.style["background-color"] = "#f5902a"; // Reset to original color
+                    }
+                    col.style["background-color"] = "#bf6e1d"; // Darker shade
+                    currentOperatorElement = col;
+
+                    // handle operators
+                    if (math_operator !== null && math_operator !== operator) {
+                        if (math_operator !== operator) {
+                            stack.pop();
+                            stack.pop();
+                        }
+                        // math_operator = operator;
+                        // stack.push(parseFloat(current_value));
+                        // stack.push(math_operator);
+                    }
+                    math_operator = operator;
+                    stack.push(parseFloat(current_value));
+                    stack.push(math_operator);
                     break;
             }
         } else {
@@ -264,19 +302,18 @@ cols.forEach((col) => {
             current_value = addNumberToCurrentString(current_value, operand);
         }
 
+        // AC button should change to C when number is inputted
+        if (current_value !== "0") {
+            let div_AC = document.querySelector(".AC");
+            div_AC.textContent = "C";
+        }
+
         if (stack.length === 4) {
             current_value = doMath(stack);
         }
 
         display(current_value);
         console.log(stack);
-
-        // display messages below calculator
-        if (current_value.length === 9) {
-            displayErrorMessage(true, "Number exceeds more than 9 characters! Will not show in display.");
-        } else {
-            displayErrorMessage(false);
-        }
     });
 });
 

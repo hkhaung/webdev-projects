@@ -113,7 +113,7 @@ ul.menu li {
     width: 100%;
     max-width: 400px;
     padding: 30px;
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     border-radius: 20px;
     background-color: black;
@@ -162,4 +162,27 @@ ul.menu li {
 
 .col.op:hover {
     background-color: #ffb347;
+}
+
+/* change mode css */
+.mode {
+    margin-top: 20px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    max-width: 400px;
+}
+
+.mode-btn {
+    background: none;
+    border: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    text-indent: 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    color: #4b82ff;
+    text-decoration: underline;
+    cursor: pointer;
 }

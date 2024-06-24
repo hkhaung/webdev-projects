@@ -33,16 +33,18 @@
             </ul>
         </nav>
 
-        <form>
-            <label for="calculator-input"> Enter your math expression: </label>
-            <input type="text" id="calculator-input" />
-            <input type="submit" id="evaluate-btn" value="Evaluate" />
-        </form>
+        <div class="calculator-expression">
+            <form>
+                <label for="calculator-input"> Enter your math expression: </label>
+                <input type="text" id="calculator-input" />
+                <input type="submit" id="evaluate-btn" value="Evaluate" />
+            </form>
+        </div>
 
-        <div class="container">
+        <div class="container calculator-visual">
             <div class="grid">
                 <div class="result">0</div>
-                <div class="col operator">AC</div>
+                <div class="col operator AC">AC</div>
                 <div class="col operator">+/-</div>
                 <div class="col operator">%</div>
                 <div class="col operator op">÷</div>
@@ -59,10 +61,12 @@
                 <div class="col">3</div>
                 <div class="col operator op">+</div>
                 <div class="col zero">0</div>
-                <div class="col">.</div>
+                <div class="col operator">.</div>
                 <div class="col operator op">=</div>
             </div>
         </div>
+
+        <div class="mode">Want to just enter a math expression? Click <button class="mode-btn">here</button>!</div>
     </body>
     <script src="index.js"></script>
 </html>
