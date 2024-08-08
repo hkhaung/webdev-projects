@@ -1,0 +1,25 @@
+:root {
+	--system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    padding: 0;
+    margin: 0;
+}
+
+body {
+	font-family: 'Poppins', var(--system-font);
+    width: 100%;
+    height: 100%;
+    /* display: flex; */
+}
+
+.background-container {
+    width: 30%;
+    height: 100vh;
+    /* background: url("jack-dong-unsplash.jpg") no-repeat center center; */
+    /* background-size: cover; */
+}
+
+.background-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
