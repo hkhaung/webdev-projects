@@ -1,25 +1,203 @@
 :root {
-	--system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    padding: 0;
-    margin: 0;
+    --system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 
 body {
-	font-family: 'Poppins', var(--system-font);
-    width: 100%;
-    height: 100%;
-    /* display: flex; */
+    font-family: "Poppins", var(--system-font);
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* left side background/logo container */
 
 .background-container {
-    width: 30%;
-    height: 100vh;
-    /* background: url("jack-dong-unsplash.jpg") no-repeat center center; */
-    /* background-size: cover; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: center;
+    color: white;
+    width: 40%;
 }
 
-.background-container img {
+.background-container img:first-child {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
+}
+
+#logo-container {
+    position: absolute;
+    top: 18%;
+    width: 100%;
+    height: 15%;
+}
+
+#logo-container .content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.content img {
+    max-height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+#logo-text {
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+}
+
+.background-container #photo-credits {
+    text-align: center;
+    font-size: 0.8rem;
+    position: absolute;
+    width: 100%;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.background-container a {
+    color: white;
+}
+
+/* right side paragraph and form container */
+.paragraph-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    background-color: rgba(239, 239, 239, 0.308);
+}
+
+.paragraph {
+    /* top right bottom left */
+    padding: 10% 20% 4% 5%;
+}
+
+.paragraph p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+}
+
+.paragraph p:nth-child(2) {
+    padding-bottom: 5%;
+}
+
+.italize-text {
+    font-style: oblique;
+}
+
+/* signup form container */
+
+.signup-container {
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.signup-container p {
+    padding: 2% 20% 2% 5%;
+}
+
+form {
+    padding: 0 20% 1% 5%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+
+}
+
+form label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
+    letter-spacing: 1px;
+    padding-bottom: 4px;
+}
+
+form input {
+    outline: none;
+    min-height: 22px;
+    width: 70%;
+    border: unset;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 1% 2% 1% 2%;
+}
+
+form input:focus {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    border: solid 1px rgb(61, 149, 255);
+}
+
+.form-row:nth-child(3) .form-group:nth-child(1) input:invalid, .form-group:nth-child(2) input:invalid{
+    border: solid 1px red;    
+}
+
+#invalid-text {
+    color: red;
+    font-size: 0.7rem;
+}
+
+.signup-container p {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.submit-container {
+    padding: 5% 20% 5% 5%;
+}
+
+#submit-btn {
+    all: unset;
+    cursor: pointer;
+    width: 30%;
+    height: 45px;
+    border: solid 1px transparent;
+    border-radius: 10px;
+    background-color: rgb(61, 149, 255);
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.submit-container div {
+    padding-top: 5%;
+}
+
+.submit-container a {
+    cursor: pointer;
+    font-weight: 600;
+    color: rgb(61, 149, 255);
+    text-decoration: none;
 }

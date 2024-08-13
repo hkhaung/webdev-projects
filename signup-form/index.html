@@ -7,49 +7,80 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div class="background-container">
-        <div><img src="" alt="logo"></div>
-        <div>Photo by <a href="https://unsplash.com/@lwdzl?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Jack Dong</a> on <a href="https://unsplash.com/photos/the-night-sky-is-full-of-stars-and-clouds-yUQ79XZDQFQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
-    </div>
-
-    <!-- <div class="paragraph-container">
-        <h2>
-        This is not a real online service! You know you need something like
-        this in your life to help you realize your deepest dreams. 
-        (You don't really but trust me on this one.)
-        </h2>
-        <h2>Sign up <span class="italize-text">now</span> to get started.</h2>
-        <h2>You <span class="italize-text">know</span> you want to.</h2>
-    </div>
-
-    <div class="signup-container">
-        <h2>Let's do this!</h2>
-
-        <div class="form-container">
-            <form>
-                <label for="firstname">FIRST NAME</label>
-                <input type="text">
-
-                <label for="lastname">LAST NAME</label>
-                <input type="text">
-
-                <label for="email">EMAIL</label>
-                <input type="email">
-                
-                <label for="phone-num">PHONE NUMBER</label>
-                <input type="number">
-
-                <label for="password">PASSWORD</label>
-                <input type="text">
-
-                <label for="confirm-password">CONFIRM PASSWORD</label>
-                <input type="text">
-            </form>
+    <div class="container">
+        <div class="background-container">
+            <img src="jack-dong-unsplash.jpg" alt="background-image">
+            <div id="logo-container">
+                <div class="content">
+                    <div><img src="odin-lined.png" alt="logo"></div>
+                    <div id="logo-text">Rock and Stone</div>
+                </div>
+            </div>
+            <div id="photo-credits">Photo by <a href="https://unsplash.com/@lwdzl?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank">Jack Dong</a> on <a href="https://unsplash.com/photos/the-night-sky-is-full-of-stars-and-clouds-yUQ79XZDQFQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank">Unsplash</a></div>
         </div>
 
-        <button type="submit">Create Account</button>
+        <div class="paragraph-form-container">
+            <div class="paragraph">
+                <p>
+                This is not a real online service! You know you need something like
+                this in your life to help you realize your deepest dreams. 
+                </p>
+                <p>Sign up <span class="italize-text">now</span> to get started.</p>
+                <p>You <span class="italize-text">know</span> you want to.</p>
+            </div>
 
-        <div>Already have an account? <a>Log in</a></div>
-    </div> -->
+            <div class="signup-container">
+                <p>Let's do this!</p>
+
+                <form action="">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstname">FIRST NAME</label>
+                            <input type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastname">LAST NAME</label>
+                            <input type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">EMAIL</label>
+                            <input type="email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone-num">PHONE NUMBER</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password">PASSWORD</label>
+                            <input type="text" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirm-password">CONFIRM PASSWORD</label>
+                            <input type="text" required>
+                        </div>
+
+                        <div id="invalid-text">
+                            *Passwords do not match.
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="submit-container">
+                <button type="submit" id="submit-btn">Create Account</button>
+                <div>Already have an account? <a href="">Log in</a></div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
