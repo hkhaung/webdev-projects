@@ -31,3 +31,6 @@ Exercises I did while following The Odin Project
 ## Node.js Course
 
 1. Sign-up form (not connected to backend, done for practice)
+
+2. Dashboard (no backend, done for practice but design used for portfolio website)
+- problems: responsiveness (items in grid go out of the grid when window size becomes smaller)
