@@ -5,6 +5,7 @@
 
 body {
     font-family: "Poppins", var(--system-font);
+    background-color: #e5e7eb;
     padding: 0;
     margin: 0;
 }
@@ -86,6 +87,7 @@ body {
     grid-column: 2 / 3;
     display: flex;
     flex-direction: column;
+    background-color: white;
 }
 
 #container-0 {
@@ -142,11 +144,12 @@ body {
     font-size: 30px !important;
 }
 
-#container-1 {
+#navbar #container-1 {
     height: 50%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 4px 4px -2px gray;
 }
 
 #container-1 #buttons {
@@ -195,8 +198,8 @@ body {
 #content {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
-    /* background-color: #f3f4f6; */
     background-color: #e5e7eb;
+    margin-top: 10px;
 }
 
 #content .grid {
@@ -205,7 +208,6 @@ body {
     height: 100%;
     grid-template-rows: 1fr;
     grid-template-columns: 80% 1fr;
-    /* box-sizing: border-box; */
 }
 
 #projects {
@@ -218,57 +220,50 @@ body {
     font-weight: 500;
     font-size: 1.1rem;
     text-align: left;
-    margin-left: 20px;
+    margin-left: 8%;
     margin-bottom: 10px;
 }
 
 #projects .grid {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
-}
-
-#projects .item {
-    border: solid 1px yellowgreen;
-    padding: 0 20px 20px 20px;
-    /* width: 70% */
+    grid-template-rows: 220px 220px 220px;
+    grid-template-columns: 320px 320px 320px;
+    column-gap: 5%;
+    margin-left: 8%;
+    width: 90%;
 }
 
 .item .project {
     background-color: white;
-
     display: flex;
     flex-direction: row;
     background-color: #fff;
     border-radius: 10px;
-    /* width: 80%; */
-    width: 200px;
-    height: 150px;
-    /* padding: 16px; */
-    
+    width: min(300px, 450px, 500px);
+    height: 200px;
     box-shadow: 0 4px 4px -2px gray;
 }
 
 .title-description {
     display: flex;
     flex-direction: column;
-    /* border: solid 1px red; */
 }
 
 .title {
     font-weight: 500;
     text-align: left;
+    margin-top: 10%;
 }
 
 .description {
     font-size: 0.8rem;
     color: gray;
     text-align: left;
+    padding-bottom: 10%;
 }
 
 .project .decorative-bar {
-    /* background-color: #FFD700; */
-    background-color: red;
+    background-color: orange;
     margin-right: 20px;
     width: 25px;
     border-top-left-radius: 20px;
@@ -278,11 +273,21 @@ body {
 .project .icons {
     display: flex;
     justify-content: end;
-    /* border: solid 1px blue; */
+    gap: 10px;
+}
+
+.icons {
+    margin-top: 8%;
+    margin-right: 8%;
 }
 
 .icons button {
-    /* all: unset; */
+    all: unset;
+}
+
+.icons .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0;
+    font-size: 25px !important;
 }
 
 #announcements {
@@ -354,8 +359,3 @@ hr {
 #container-1 .content .item div:last-child {
     font-size: 0.8rem;
 }
-
-
-
-
-
