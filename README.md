@@ -38,3 +38,7 @@ Exercises I did while following The Odin Project
 - basically had to hardcode which is not good and website only looks good at 1980x1080
 - Below is the result
     ![website result](dashboard/result.png)
+
+3. Library
+- no frontend, just JS, this project is to practice OOP
+- might come back to add more to this
