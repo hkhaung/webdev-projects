@@ -42,3 +42,7 @@ Exercises I did while following The Odin Project
 3. Library
 - no frontend, just JS, this project is to practice OOP
 - might come back to add more to this
+
+4. Tic Tac Toe
+- no frontend, just JS, this project is also to practice OOP
+- might come back to add more to this
