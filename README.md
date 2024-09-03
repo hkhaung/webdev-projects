@@ -53,5 +53,6 @@ Exercises I did while following The Odin Project
 - uses tabbed browsing ie each tab shows corresponding content
     - done by using webpack and imports/exports of functions
 - the menu, about, and order online content are not implemented
+- still don't know how to make websites responsive so website only looks right at certain sizes
 - Below is the result
     ![website result](restaurant-page/result.png)
