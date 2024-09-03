@@ -61,3 +61,8 @@ Exercises I did while following The Odin Project
 - the menu, about, and order online content are not implemented
 - still don't know how to make websites responsive so website only looks right at certain sizes. See below:
     ![website result](restaurant-page/result.png)
+
+
+Credits:
+- fonts are from Google Fonts
+- images are from unsplash, freepik, and others are saved from google search
