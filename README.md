@@ -7,7 +7,6 @@ Exercises I did while following The Odin Project
 1. Landing page
 
 - the 4 boxes of images was not correct ie was not spaced correctly
-- responsiveness was missing, had to chatgpt for it because did not know how to do it
 - Below is the result with boxes outlined. The final result does not have these boxes/borders.
     ![website result](landingpage/result.gif)
 
@@ -21,7 +20,7 @@ Exercises I did while following The Odin Project
 
 - could be better styling and layout, only did the bare minimum
 - Below is the result
-    ![website result](etch-a-sketch/result.mp4)
+    ![website result](etch-a-sketch/result.gif)
 
 4. Calculator
 
