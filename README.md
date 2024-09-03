@@ -26,6 +26,13 @@ Exercises I did while following The Odin Project
 
 - Decided not to do calculator game -> figured not worth and I won't play it after I am done with it
 - Instead made a receipt calculator and made the project public (check it out since my thoughts/summary is in that repo)
+- Also made a functional calculator
+- Below are results:
+
+    ![website result](calculator-game/result0.png)
+
+    ![receipt result](calculator-game/result1.png)
+- You can check the live version [here](https://hkhaung.github.io).
 
 ## Node.js Course
 
