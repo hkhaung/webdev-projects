@@ -45,4 +45,13 @@ Exercises I did while following The Odin Project
 
 4. Tic Tac Toe
 - no frontend, just JS, this project is also to practice OOP
+- used prototypes instead of classes
 - might come back to add more to this
+
+5. Restaurant Page
+- to practice using Webpack, a module bundler
+- uses tabbed browsing ie each tab shows corresponding content
+    - done by using webpack and imports/exports of functions
+- the menu, about, and order online content are not implemented
+- Below is the result
+    ![website result](restaurant-page/result.png)

@@ -1,0 +1,69 @@
+:root {
+	--system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+    font-family: "Poppins", sans-serif, var(--system-font);
+    color: white;
+    background-image: url('assets/odiseo-castrejon.jpeg');
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    background-repeat: no-repeat;
+    height: 100vh;
+    overflow: hidden;
+}
+
+nav {
+    margin-top: 2%;
+}
+
+nav div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+nav button {
+    all: unset;
+    font-weight: 500;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#logo {
+    padding: 0;
+}
+
+#logo img {
+    padding: 0;
+    max-width: 30%;
+    object-fit: contain;
+}
+
+#order-online-btn {
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #ffc98fe2;
+    border-radius: 15px;
+}
+
+#home {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+}
+
+#home div {
+    text-align: center;
+}
+
+#home div:first-child {
+    font-size: 4rem;
+}
+
+#home div:last-child {
+    font-size: 1.2rem;
+    font-weight: 200;
+}
