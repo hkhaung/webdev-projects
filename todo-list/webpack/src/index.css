@@ -1,0 +1,206 @@
+:root {
+	--system-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+body {
+	font-family: "Poppins", sans-serif, var(--system-font);
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* navbar */
+
+nav {
+    padding: 10px 125px;
+    box-shadow: 0 4px 4px -6px gray;
+}
+
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#items {
+    display: flex;
+    gap: 10px;
+}
+
+#logo {
+    all: unset;
+    /* border: none; */
+    /* padding: 10px 20px; */
+    cursor: pointer;
+    /* border: solid 1px; */
+}
+
+#items button {
+    all: unset;
+    font-size: small;
+    padding: 5px 15px 5px 15px;
+    cursor: pointer;
+}
+
+#items #signin-btn, #items #register-btn {
+    border-radius: 12px;
+}
+
+#items #signin-btn {
+    background-color: #dadada;
+}
+
+#items #register-btn {
+    color: white;
+    background-color: black;
+}
+
+/* todo list - main */
+#content {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+#main {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    max-width: 450px;
+    min-width: 200px;
+    gap: 5px;
+    /* border: solid 1px yellowgreen; */
+}
+
+#main:first-child {
+    text-align: center;
+    font-size: x-large;
+}
+
+#input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+/* input */
+
+#input-container input {
+    all: unset;
+    width: 100%;
+    height: 30px;
+    border: none;
+    border: solid 1px #9f9e9e;;
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-right: 60px;
+    font-size: 1rem;
+}
+
+#input-container input::placeholder {
+    color: #9f9e9e;
+}
+
+/* buttons inside the input */
+.input-btn {
+    all: unset;
+    position: absolute;
+    right: 15px;
+    bottom: 3px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.input-btn:last-child {
+    right: 40px;
+}
+
+/* icons */
+.material-symbols-outlined {
+    color: #9f9e9e;
+    font-size: 20px;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 300,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.material-symbols-outlined:hover {
+    color: black;
+}
+
+/* the actual tasks that the user puts in */
+#tasks-container {
+    margin-top: 3vh;
+    width: 100%;
+    height: 70%;
+    border: solid 1px #9f9e9e;
+    border-radius: 10px;
+    box-shadow: 0 8px 8px -6px #9f9e9e;
+    padding-top: 40px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.task button {
+    all: unset;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+#icon-container {
+    position: relative;
+}
+
+#icon-container:hover .check {
+    visibility: visible;
+}
+
+#icon-container:hover .circle {
+    visibility: hidden;
+}
+
+.task .material-symbols-outlined {
+    color: black;
+    vertical-align: middle;
+    font-size: 25px;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+.task .material-symbols-outlined.check {
+    color: green;
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -44%);
+}
+
+.task .material-symbols-outlined.high-priority {
+    color: red;
+    margin-right: 10px;
+}
+
+.task .title {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: auto;
+    margin-right: auto;
+}

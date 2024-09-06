@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="navbar">
+                <button id="logo">Todo List</button>
+                <div id="items">
+                    <button>History</button>
+                    <button>About</button>
+                    <button id="signin-btn">Sign in</button>
+                    <button id="register-btn">Register</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="content">
+        <div id="main">
+            <div>What will you do today?</div>
+            <div id="input-container">
+                <input type="text" placeholder="I will...">
+                <button class="input-btn"><span class="material-symbols-outlined">close</span></button>
+                <button class="input-btn"><span class="material-symbols-outlined">sort</span></button>
+            </div>
+
+            <div id="tasks-container">
+                <div class="task" id="0">
+                    <button id="icon-container">
+                        <span class="material-symbols-outlined circle">circle</span>
+                        <span class="material-symbols-outlined check">task_alt</span>
+                    </button>
+                    <div class="title">Task Title 1</div>
+                    <span class="material-symbols-outlined high-priority">priority_high</span>
+                </div>
+                <div class="task" id="1">
+                    <button id="icon-container">
+                        <span class="material-symbols-outlined circle">circle</span>
+                        <span class="material-symbols-outlined check">task_alt</span>
+                    </button>
+                    <div class="title">Task Title 2</div>
+                </div>
+                <div class="task" id="2">
+                    <button id="icon-container">
+                        <span class="material-symbols-outlined circle">circle</span>
+                        <span class="material-symbols-outlined check">task_alt</span>
+                    </button>
+                    <div class="title">Task Title 3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
