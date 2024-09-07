@@ -115,6 +115,14 @@
     visibility: hidden;
 }
 
+.shown {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 .task .material-symbols-outlined {
     color: black;
     vertical-align: middle;
@@ -128,7 +136,6 @@
 
 .task .material-symbols-outlined.check {
     color: green;
-    visibility: hidden;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -138,16 +145,27 @@
 .task .material-symbols-outlined.high-priority {
     color: red;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .task .material-symbols-outlined.low-priority {
     color: gray;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .task .title {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     margin-top: auto;
     margin-right: auto;
+}
+
+.edit-input {
+    all: unset;
+    font-family: "Poppins", sans-serif, var(--system-font);
+    text-align: left;
+    border: none;
+    width: 300px;
+    max-width: 300px;
 }

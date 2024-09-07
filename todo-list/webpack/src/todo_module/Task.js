@@ -3,11 +3,13 @@ export class Task {
     #id;
     #title;
     #isHighPrio;
+    #isDone;
 
-    constructor(title, isHighPrio = false) {
+    constructor(title, isHighPrio = false, isDone = false) {
         this.#id = this.#generateRandomID();
         this.#title = title;
         this.#isHighPrio = isHighPrio;
+        this.#isDone = isDone;
     }
 
     get ID() {
@@ -28,6 +30,14 @@ export class Task {
 
     set isHighPrio(isHighPriority) {
         this.#isHighPrio = isHighPriority;
+    }
+
+    get isDone() {
+        return this.#isDone;
+    }
+
+    set isDone(isDone) {
+        this.#isDone = isDone;
     }
 
     /* 

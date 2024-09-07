@@ -134,10 +134,10 @@ function createTask(tasksContainer, task) {
 	let iconContainerBtn = document.createElement('button');
 	iconContainerBtn.setAttribute('id', 'icon-container');
 	let circleIcon = document.createElement('span');
-	circleIcon.classList.add('material-symbols-outlined', 'circle');
+	circleIcon.classList.add('material-symbols-outlined', 'circle', 'shown');
 	circleIcon.textContent = 'circle';
 	let checkIcon = document.createElement('span');
-	checkIcon.classList.add('material-symbols-outlined', 'check');
+	checkIcon.classList.add('material-symbols-outlined', 'check', 'hidden');
 	checkIcon.textContent = 'task_alt';
 
 	// task title
@@ -193,10 +193,12 @@ function inputFunc(tasksContainer, inputElement, closeBtn, sortBtn) {
 	inputElement.addEventListener('keydown', function(event) {
 		if (event.key === 'Enter') {
 			newTask = new Task(inputElement.value, isHighPrio);
-			const [iconContainerBtn, circleIcon, checkIcon, taskTitleDiv] = createTask(tasksContainer, newTask);
+			const [iconContainerBtn, circleIcon, checkIcon, taskTitleDiv, taskIsHighPrioIcon] = createTask(tasksContainer, newTask);
 
 			// add functionality to task elements
-			taskTitleDivFunc(taskTitleDiv);
+			taskTitleDivFunc(taskTitleDiv, newTask);
+			taskIsHighPrioIconFunc(taskIsHighPrioIcon, newTask);
+			iconContainerBtnFunc(iconContainerBtn, circleIcon, checkIcon, newTask);
 
 			// reset after
 			inputElement.value = '';
@@ -209,16 +211,27 @@ function inputFunc(tasksContainer, inputElement, closeBtn, sortBtn) {
 }
 
 // [iconContainerBtn, circleIcon, checkIcon, taskTitleDiv, taskIsHighPrioIcon]
-function iconContainerBtnFunc() {
-
+function iconContainerBtnFunc(iconContainerBtn, circleIcon, checkIcon, newTask) {
+	iconContainerBtn.addEventListener('click', () => {
+		if (circleIcon.classList[2] === 'shown') {
+			circleIcon.classList.replace('shown', 'hidden');
+			checkIcon.classList.replace('hidden', 'shown');
+			newTask.isDone = false;
+		} else {
+			checkIcon.classList.replace('shown', 'hidden');
+			circleIcon.classList.replace('hidden', 'shown');
+			newTask.isDone = true;
+		}
+	});
 }
 
-function taskTitleDivFunc(taskTitleDiv) {
+function taskTitleDivFunc(taskTitleDiv, newTask) {
 	taskTitleDiv.addEventListener('dblclick', () => {
 		const currentText = taskTitleDiv.textContent;
 	
 		// Create an input element
 		const input = document.createElement('input');
+		input.classList.add('edit-input');
 		input.type = 'text';
 		input.value = currentText;
 	
@@ -231,6 +244,7 @@ function taskTitleDivFunc(taskTitleDiv) {
 		input.addEventListener('keydown', function(event) {
 			if (event.key === 'Enter') {
 				taskTitleDiv.textContent = input.value;
+				newTask.title = input.value;
 			}
 		});
 	
@@ -243,6 +257,15 @@ function taskTitleDivFunc(taskTitleDiv) {
 	});
 }
 
-function taskIsHighPrioIcon() {
-	
+function taskIsHighPrioIconFunc(taskIsHighPrioIcon, newTask) {
+	taskIsHighPrioIcon.addEventListener('click', () => {
+		let priority = taskIsHighPrioIcon.classList[1];
+		if (priority == 'low-priority') {
+			taskIsHighPrioIcon.classList.replace('low-priority', 'high-priority');
+			newTask.isHighPrio = true;
+		} else {
+			taskIsHighPrioIcon.classList.replace('high-priority', 'low-priority');
+			newTask.isHighPrio = false;
+		}
+	});
 }

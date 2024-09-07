@@ -34,6 +34,7 @@ nav {
     /* padding: 10px 20px; */
     cursor: pointer;
     /* border: solid 1px; */
+    min-width: 90px;
 }
 
 #items button {
@@ -45,6 +46,7 @@ nav {
 
 #items #signin-btn, #items #register-btn {
     border-radius: 12px;
+    min-width: 45px;
 }
 
 #items #signin-btn {
