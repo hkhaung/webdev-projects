@@ -153,8 +153,12 @@ function createTask(tasksContainer, task) {
 	} else {
 		taskIsHighPrioIcon.classList.add('material-symbols-outlined', 'low-priority');		
 	}
+	
+	iconContainerBtn.appendChild(circleIcon);
+	iconContainerBtn.appendChild(checkIcon);
+	taskDiv.appendChild(iconContainerBtn);
+	taskDiv.appendChild(taskTitleDiv);
 	taskDiv.appendChild(taskIsHighPrioIcon);
-
 	tasksContainer.appendChild(taskDiv);
 
 	return [iconContainerBtn, circleIcon, checkIcon, taskTitleDiv, taskIsHighPrioIcon];
@@ -189,7 +193,8 @@ function inputFunc(tasksContainer, inputElement, closeBtn, sortBtn) {
 	inputElement.addEventListener('keydown', function(event) {
 		if (event.key === 'Enter') {
 			newTask = new Task(inputElement.value, isHighPrio);
-			const [iconContainerBtn, circleIcon, checkIcon, taskTitleDiv, taskIsHighPrioIcon] = createTask(tasksContainer, newTask);
+			const [iconContainerBtn, circleIcon, checkIcon, taskTitleDiv] = createTask(tasksContainer, newTask);
+
 			// add functionality to task elements
 			taskTitleDivFunc(taskTitleDiv);
 
