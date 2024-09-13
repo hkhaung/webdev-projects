@@ -1,9 +1,3 @@
-# the-odin-project
-
-Exercises I did while following The Odin Project
-
-## Foundation Course
-
 1. Landing page
 
 - the 4 boxes of images was not correct ie was not spaced correctly
@@ -34,27 +28,25 @@ Exercises I did while following The Odin Project
     ![receipt result](calculator-game/result1.png)
 - You can check the live version [here](https://hkhaung.github.io).
 
-## Node.js Course
+5. Sign-up form (not connected to backend, done for practice)
 
-1. Sign-up form (not connected to backend, done for practice)
-
-2. Dashboard (no backend, done for practice but design used for portfolio website)
+6. Dashboard (no backend, done for practice but design used for portfolio website)
 - problem: responsiveness (items in grid go out of the grid when window size becomes smaller)
 - problem: text in flexbox (can't put a lot otherwise will push buttons outside the textbox)
 - basically had to hardcode which is not good and website only looks good at 1980x1080
 - Below is the result
     ![website result](dashboard/result.png)
 
-3. Library
+7. Library
 - no frontend, just JS, this project is to practice OOP
 - might come back to add more to this
 
-4. Tic Tac Toe
+8. Tic Tac Toe
 - no frontend, just JS, this project is also to practice OOP
 - used prototypes instead of classes
 - might come back to add more to this
 
-5. Restaurant Page
+9. Restaurant Page
 - to practice using Webpack, a module bundler
 - uses tabbed browsing ie each tab shows corresponding content
     - done by using webpack and imports/exports of functions
