@@ -62,6 +62,7 @@ Exercises I did while following The Odin Project
 - still don't know how to make websites responsive so website only looks right at certain sizes. See below:
     ![website result](restaurant-page/result.png)
 
+6. Todo List
 
 Credits:
 - fonts are from Google Fonts
