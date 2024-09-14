@@ -76,6 +76,44 @@
     color: black;
 }
 
+/* date commit delete container */
+#date-actions-container {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 20px 20px 0 20px;
+}
+
+#date {
+    font-size: 1.1rem;
+}
+
+#actions {
+    display: flex;
+    gap: 15px; /* Adds space between 'Delete' and 'Commit' */
+}
+
+#actions button {
+    all: unset;
+    font-size: 0.9rem;
+    font-family: "Poppins", sans-serif, var(--system-font);
+    cursor: pointer;
+}
+
+#actions button:hover {
+    text-decoration: underline;
+}
+
+#actions #commit-btn:hover {
+    color: rgb(73, 160, 73);
+}
+
+/* line between date and tasks */
+#line-break {
+    margin-top: 5px;
+    width: 90%;
+}
+
 /* the actual tasks that the user puts in */
 #tasks-container {
     margin-top: 3vh;
@@ -84,7 +122,6 @@
     border: solid 1px #9f9e9e;
     border-radius: 10px;
     box-shadow: 0 8px 8px -6px #9f9e9e;
-    padding-top: 40px;
 }
 
 .task {
@@ -156,7 +193,7 @@
 
 .task .title {
     text-align: center;
-    font-size: 1.0rem;
+    font-size: 1rem;
     margin-top: auto;
     margin-right: auto;
 }
@@ -168,4 +205,22 @@
     border: none;
     width: 300px;
     max-width: 300px;
+}
+
+/* popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popup-content {
+    text-align: center;
 }
