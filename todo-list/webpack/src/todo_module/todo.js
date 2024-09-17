@@ -57,7 +57,18 @@ export function displayTodo() {
 	// add functionality to elements that need it
 	let tasksArray = []; // holds tasks not committed
 	dateDivFunc(dateDiv);
-	deleteBtnFunc(deleteBtn, tasksArray);
+	const popupinnerHTML = `
+		<div class="popup-content">
+			<h3>Select Tasks to Delete</h3>
+			<form class="task-form">
+				<button type="submit" name="action" value="delete" class="confirm-delete">Delete</button>
+				<button type="submit" name="action" value="delete-all" class="delete-all">Delete All</button>
+				<button type="submit" name="action" value="cancel" class="close-popup">Cancel</button>
+			</form>
+		</div>
+	`;
+	const form = deleteBtnFunc(deleteBtn, popupinnerHTML, tasksArray);
+	formSubmitFunc(form, tasksArray);
 	commitBtnFunc(commitBtn, tasksArray);
 	inputFunc(tasksContainer, input, closeButton, sortButton, tasksArray);
 
@@ -86,6 +97,7 @@ function createInput(mainDiv) {
     let input = document.createElement('input');
     input.type = 'text';
     input.placeholder = 'I will...';
+	input.name = 'task-input';
 
 	// close button
 	const closeButton = document.createElement('button');
@@ -230,28 +242,55 @@ function dateDivFunc(dateDiv) {
 	dateDiv.textContent = formattedDate;
 }
 
-function deleteBtnFunc(deleteBtn, tasksArray) {
+function changeOpacity(hide = false) {
+	const navbar = document.querySelector('header');
+	const content = document.getElementById('content');
+	const popup = document.querySelector('.popup');
+
+	if (hide) {
+		navbar.style.opacity = 0.1;
+		content.style.opacity = 0.1;
+		navbar.style.pointerEvents = 'none';
+		content.style.pointerEvents = 'none';
+		popup.style.display = 'block';
+	} else {
+		navbar.style.opacity = 1;
+		content.style.opacity = 1;
+		navbar.style.pointerEvents = 'auto';
+		content.style.pointerEvents = 'auto';
+		popup.style.display = 'none';
+	}
+}
+
+function deleteBtnFunc(deleteBtn, popupinnerHTML, tasksArray) {
 	// create popup and show tasks in tasksArray
 	const popup = document.createElement('div');
     popup.classList.add('popup');
-    popup.innerHTML = `
-        <div class="popup-content">
-            <h3>Select Tasks to Delete</h3>
-            <form class="task-form">
-				<button type="submit" class="confirm-delete">Confirm Delete</button>
-            	<button class="close-popup">Cancel</button>
-			</form>
-        </div>
-    `;
-    document.body.appendChild(popup);
+	popup.innerHTML = popupinnerHTML;
+	document.body.append(popup);
+
+	let header = popup.querySelector('h3');
 
     // Show the popup when the delete button is clicked and has tasks
-    deleteBtn.addEventListener('click', () => {
-		if (tasksArray.length > 0) { // add each task in tasks array to form
-        	popup.style.display = 'block';
-			console.log(tasksArray);
+    deleteBtn.addEventListener('click', (event) => {
+		event.preventDefault();
+		changeOpacity(true);
+		
+		// clear popup tasks before adding each task in tasks array to form
+		if (tasksArray.length > 0) {
+			header.textContent = 'Select Tasks to Delete';
+			
+			const checkboxContainers = popup.querySelectorAll('.checkbox-container');
+			for (const container of checkboxContainers) {
+				container.remove();
+			}
+
 			const taskForm = popup.querySelector('.task-form');
 			for (const task of tasksArray) {
+				const div = document.createElement('div');
+				div.setAttribute('id', task.ID);
+				div.classList.add('checkbox-container');
+
 				const input = document.createElement('input');
 				input.type = 'checkbox';
 				input.classList.add('task-checkbox');
@@ -261,45 +300,87 @@ function deleteBtnFunc(deleteBtn, tasksArray) {
 				const taskLabel = document.createElement('label');
 				taskLabel.htmlFor = input.id;
 				taskLabel.textContent = task.title;
-				
-				taskForm.insertBefore(document.createElement('br'), taskForm.firstChild);
-				taskForm.insertBefore(taskLabel, taskForm.firstChild);
-				taskForm.insertBefore(input, taskForm.firstChild);
+
+				div.appendChild(input);
+				div.appendChild(taskLabel);
+				taskForm.insertBefore(div, taskForm.firstChild);
 			}
+		} else {
+			header.textContent = 'There are no tasks to delete';
 		}
     });
 
-    // Handle the close button (cancel)
-    const closeBtn = popup.querySelector('.close-popup');
-    closeBtn.addEventListener('click', () => {
-        popup.style.display = 'none';
-    });
-
-    // Handle the confirm delete button
 	const form = document.querySelector('.task-form');
+	return form;
+}
+
+function formSubmitFunc(form, tasksArray) {
 	form.addEventListener('submit', function(event) {
         event.preventDefault();
+		
+		const clickedButton = event.submitter;
+		let tasksMain = [];
 
-        const selectedCheckboxes = document.querySelectorAll('.task-checkbox:checked');
-		for (const selectedTask of selectedCheckboxes) {
-			let selectedTaskId = selectedTask.id;
-			document.getElementById(selectedTaskId).remove(selectedTaskId);
+		if (clickedButton.value === 'delete') {
+			const elements = document.querySelectorAll('.task-checkbox:checked');
+			elements.forEach((element) => {
+				tasksMain.push(element.id);
+			});
 
-			const taskIndex = tasksArray.findIndex(task => task.ID === selectedTaskId);
-			if (taskIndex !== -1) {
-				tasksArray.splice(taskIndex, 1);
+			if (tasksMain.length > 0) {
+				const mainDiv = document.getElementById('main');
+				for (const id of tasksMain) {
+					mainDiv.querySelector(`#${id}`).remove();
+					const taskIndex = tasksArray.findIndex(task => task.ID === id);
+					if (taskIndex !== -1) {
+						tasksArray.splice(taskIndex, 1);
+					}
+				}
+
+				const checkboxContainers = document.querySelectorAll('.checkbox-container');
+				checkboxContainers.forEach((container) => {
+					elements.forEach((element) => {
+						if (element.id === container.id) {
+							container.remove();
+						}
+					});
+				});
+			}
+		} else if (clickedButton.value === 'delete-all') {
+			const elements = document.querySelectorAll('.checkbox-container');
+			elements.forEach((element) => {
+				tasksMain.push(element.id);
+				element.remove();
+			});
+
+			if (tasksMain.length > 0) {
+				const mainDiv = document.getElementById('main');
+				for (const id of tasksMain) {
+					mainDiv.querySelector(`#${id}`).remove();
+					const taskIndex = tasksArray.findIndex(task => task.ID === id);
+					if (taskIndex !== -1) {
+					tasksArray.splice(taskIndex, 1);
+					}
+				}
 			}
 		}
-
-		popup.style.display = 'none';
+		
+		// cancel
+		changeOpacity();
     });
 
+	// also allow escape to cancel
+	document.addEventListener('keyup', (event) => {
+		if (event.key === 'Escape') {
+			changeOpacity();
+		}
+	});
 }
 
 function commitBtnFunc(commitBtn, tasksArray) {
 	commitBtn.addEventListener('click', () => {
 		for (const task of tasksArray) {
-			console.log(task.ID);
+			console.log(task.ID, task.isDone);
 		}
 	});
 }
@@ -357,12 +438,11 @@ function iconContainerBtnFunc(iconContainerBtn, circleIcon, checkIcon, newTask) 
 		if (circleIcon.classList[2] === 'shown') {
 			circleIcon.classList.replace('shown', 'hidden');
 			checkIcon.classList.replace('hidden', 'shown');
-			newTask.isDone = false;
 		} else {
 			checkIcon.classList.replace('shown', 'hidden');
 			circleIcon.classList.replace('hidden', 'shown');
-			newTask.isDone = true;
 		}
+		newTask.isDone = !newTask.isDone;
 	});
 }
 

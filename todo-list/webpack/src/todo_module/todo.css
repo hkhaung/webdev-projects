@@ -11,7 +11,7 @@
     flex-direction: column;
     width: 60%;
     max-width: 450px;
-    min-width: 200px;
+    min-width: 450px;
     gap: 5px;
     /* border: solid 1px yellowgreen; */
 }
@@ -27,6 +27,7 @@
     align-items: center;
     position: relative;
     width: 100%;
+    min-width: 450px;
 }
 
 /* input */
@@ -38,8 +39,8 @@
     border: none;
     border: solid 1px #9f9e9e;;
     border-radius: 30px;
-    padding-left: 20px;
-    padding-right: 60px;
+    padding-left: 70px;
+    padding-right: 70px;
     font-size: 1rem;
 }
 
@@ -118,10 +119,13 @@
 #tasks-container {
     margin-top: 3vh;
     width: 100%;
+    min-width: 450px;
     height: 70%;
     border: solid 1px #9f9e9e;
     border-radius: 10px;
     box-shadow: 0 8px 8px -6px #9f9e9e;
+    padding-bottom: 20px;
+    overflow-y: auto;
 }
 
 .task {
@@ -132,6 +136,12 @@
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
+}
+
+.title {
+    white-space: initial;
+    overflow: scroll;
+    text-overflow: ellipsis;
 }
 
 .task button {
@@ -214,13 +224,54 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
     padding: 20px;
+    background-color: white;
     border: 2px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    min-width: 450px;
+    max-width: 450px;
+    max-height: 800px;
+    overflow-y: auto;
 }
 
 .popup-content {
     text-align: center;
+}
+
+.task-form {
+    padding: 20px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 5px;
+}
+
+.checkbox-container label {
+    white-space: initial;
+    overflow: scroll;
+    text-overflow: ellipsis;
+}
+
+.popup form button {
+    all: unset;
+    font-size: small;
+    border: solid 1px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 12px;
+    margin-top: 45px;
+}
+
+.confirm-delete:hover, .delete-all:hover {
+    /* background-color: #ED4337; */
+    background-color: red;
+    color: white;
+    border-color: transparent;
+}
+
+.close-popup:hover {
+    background-color: #dadada;
+    border-color: transparent;
 }
