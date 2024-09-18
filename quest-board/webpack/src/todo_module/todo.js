@@ -396,7 +396,7 @@ function commitBtnFunc(commitBtn, tasksArray) {
 			let second = date.getSeconds();
 
 			localStorage.setItem(`${document.getElementById('date').textContent}-${hour}:${minute}:${second}`, JSON.stringify(tasksArray));
-			header.textContent = `${tasksArray.length} ${tasksArray.length === 1 ? 'task' : 'tasks'} added to History! Nice job!`;
+			header.textContent = `${tasksArray.length} ${tasksArray.length === 1 ? 'quest' : 'quests'} added to History! Nice job!`;
 		}
 	});
 
