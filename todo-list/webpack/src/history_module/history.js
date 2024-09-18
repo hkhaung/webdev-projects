@@ -53,7 +53,7 @@ export function historyDisplay() {
 	mainDiv.setAttribute('id', 'commit-main');
 
     let commitHistoryDiv = document.createElement('div');
-    commitHistoryDiv.textContent = `Commit History${localStorage.length === 0 ? '' : ` (${localStorage.length})`}`;
+    commitHistoryDiv.textContent = `Completed Tasks${localStorage.length === 0 ? '' : ` (${localStorage.length})`}`;
     
     let commitsContainer = document.createElement('div');
     commitsContainer.setAttribute('id', 'commits-container');
@@ -138,7 +138,7 @@ function handleDateActionsContainer(tasksContainerDiv, key) {
     let [date, time] = key.split('-');
     time = formatTime(time);
     dateDiv.textContent = `${date} - ${time}`;
-    deleteBtn.setAttribute('id', 'commit-delete-btn');
+    deleteBtn.setAttribute('id', 'delete-btn');
     deleteBtn.textContent = 'Delete From History';
     commitBtn.remove();
 
@@ -153,7 +153,7 @@ function commitDeleteBtnFunc(deleteBtn, key) {
 
         const commitMainDiv = document.getElementById('commit-main');
         const commitHistoryDiv = commitMainDiv.firstElementChild;
-        commitHistoryDiv.textContent = `Commit History${localStorage.length === 0 ? '' : ` (${localStorage.length})`}`;
+        commitHistoryDiv.textContent = `Completed Tasks${localStorage.length === 0 ? '' : ` (${localStorage.length})`}`;
 
         if (localStorage.length === 0) {
             const commitMainDiv = document.getElementById('commit-main');

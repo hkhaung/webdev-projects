@@ -217,6 +217,10 @@
     max-width: 300px;
 }
 
+#delete-btn:hover {
+    color: red;
+}
+
 /* popup */
 .popup {
     display: none;

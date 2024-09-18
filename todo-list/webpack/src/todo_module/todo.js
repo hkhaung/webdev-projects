@@ -147,7 +147,7 @@ export function createDateActionsContainer(createTasksContainer) {
 	deleteBtn.textContent = 'Delete';
 	let commitBtn = document.createElement('button');
 	commitBtn.setAttribute('id', 'commit-btn');
-	commitBtn.textContent = 'Commit';
+	commitBtn.textContent = 'Mark As Completed';
 
 	actionsDiv.appendChild(deleteBtn);
 	actionsDiv.appendChild(commitBtn);

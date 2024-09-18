@@ -45,7 +45,3 @@
 .hidden {
     visibility: hidden;
 }
-
-#commit-delete-btn:hover {
-    color: red;
-}
