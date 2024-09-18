@@ -1,6 +1,7 @@
 import { createTasksContainer } from "../todo_module/todo";
 import { createDateActionsContainer } from "../todo_module/todo";
 import { createTask } from "../todo_module/todo";
+import { createLineBreak } from "../todo_module/todo";
 
 /*
 Renders the following
@@ -96,7 +97,7 @@ function addTaskContainers(commitsContainer) {
     if (localStorage.length === 0) {
         const commitMainDiv = document.getElementById('commit-main');
         const commitHistoryDiv = commitMainDiv.firstElementChild;
-        commitHistoryDiv.textContent = 'No commits so far...';
+        commitHistoryDiv.textContent = 'No tasks added so far...';
         return;
     }
 
@@ -113,6 +114,9 @@ function addTaskContainers(commitsContainer) {
 
         // handle date actions container
         handleDateActionsContainer(tasksContainerDiv, key);
+
+        // add line break after date actions container
+        createLineBreak(tasksContainerDiv);
 
         // handle each task in taskObject and append to tasksContainer
         handleTaskInTaskObject(tasksContainerDiv, taskObjectArray);
@@ -158,7 +162,7 @@ function commitDeleteBtnFunc(deleteBtn, key) {
         if (localStorage.length === 0) {
             const commitMainDiv = document.getElementById('commit-main');
             const commitHistoryDiv = commitMainDiv.firstElementChild;
-            commitHistoryDiv.textContent = 'No commits so far...';
+            commitHistoryDiv.textContent = 'No tasks added so far...';
             return;
         }
     });

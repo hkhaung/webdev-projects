@@ -158,7 +158,7 @@ export function createDateActionsContainer(createTasksContainer) {
 	return [dateDiv, deleteBtn, commitBtn];
 }
 
-function createLineBreak(container) {
+export function createLineBreak(container) {
 	let line = document.createElement('hr');
 	line.setAttribute('id', 'line-break');
 	container.appendChild(line);
@@ -396,7 +396,7 @@ function commitBtnFunc(commitBtn, tasksArray) {
 			let second = date.getSeconds();
 
 			localStorage.setItem(`${document.getElementById('date').textContent}-${hour}:${minute}:${second}`, JSON.stringify(tasksArray));
-			header.textContent = `${tasksArray.length} ${tasksArray.length === 1 ? 'task' : 'tasks'} added!`;
+			header.textContent = `${tasksArray.length} ${tasksArray.length === 1 ? 'task' : 'tasks'} added to History! Nice job!`;
 		}
 	});
 

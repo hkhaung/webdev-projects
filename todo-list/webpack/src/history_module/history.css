@@ -28,6 +28,11 @@
     margin: 0 auto;   
 }
 
+#commits-container .tasks-container {
+    margin-bottom: 5%;
+    height: 90%;
+}
+
 /* icon container button from todo.css */
 .task button {
     all: unset;
