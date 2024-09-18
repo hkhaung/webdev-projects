@@ -373,7 +373,7 @@ function commitBtnFunc(commitBtn, tasksArray) {
 		popup.setAttribute('id', 'commit-popup');
 		popup.innerHTML = `
 			<div class="popup-content">
-				<h3>There are no tasks to commit to history<h3>
+				<h3>There are no quests to commit to history<h3>
 				<form class="task-form">
 					<button type="submit" name="action" value="ok" class="ok-popup">Ok</button>
 				</form>

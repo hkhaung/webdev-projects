@@ -97,7 +97,7 @@ function addTaskContainers(commitsContainer) {
     if (localStorage.length === 0) {
         const commitMainDiv = document.getElementById('commit-main');
         const commitHistoryDiv = commitMainDiv.firstElementChild;
-        commitHistoryDiv.textContent = 'No tasks added so far...';
+        commitHistoryDiv.textContent = 'No quests added so far...';
         return;
     }
 
@@ -162,7 +162,7 @@ function commitDeleteBtnFunc(deleteBtn, key) {
         if (localStorage.length === 0) {
             const commitMainDiv = document.getElementById('commit-main');
             const commitHistoryDiv = commitMainDiv.firstElementChild;
-            commitHistoryDiv.textContent = 'No tasks added so far...';
+            commitHistoryDiv.textContent = 'No quests added so far...';
             return;
         }
     });
