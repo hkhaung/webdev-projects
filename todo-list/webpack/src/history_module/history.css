@@ -1,0 +1,51 @@
+#commit-main {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    min-width: 450px;
+    gap: 5px;
+}
+
+#commit-main:first-child {
+    text-align: center;
+    font-size: x-large;
+}
+
+#commits-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    height: 70%;
+    width: 100%;
+    min-width: 450px;
+    overflow-x: auto;
+}
+
+#commits-container > div:only-child {
+    width: 450px;
+    margin: 0 auto;   
+}
+
+/* icon container button from todo.css */
+.task button {
+    all: unset;
+    margin-left: 20px;
+}
+
+#commit-icon-container {
+    position: relative;
+}
+
+.shown {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+#commit-delete-btn:hover {
+    color: red;
+}

@@ -1,5 +1,4 @@
 import { Task } from "./Task";
-import { addTaskToLocalStorage } from "../localStorage";
 
 /*
 Renders the following using helper functions into #content:
@@ -11,7 +10,7 @@ Renders the following using helper functions into #content:
 		<button class="input-btn"><span class="material-symbols-outlined">sort</span></button>
 	</div>
 
-	<div id="tasks-container">
+	<div class="tasks-container">
 		<div id="date-actions-container">
 			<div id="date"></div>
 			<div id="actions">
@@ -57,23 +56,10 @@ export function displayTodo() {
 	// add functionality to elements that need it
 	let tasksArray = []; // holds tasks not committed
 	dateDivFunc(dateDiv);
-	const popupinnerHTML = `
-		<div class="popup-content">
-			<h3>Select Tasks to Delete</h3>
-			<form class="task-form">
-				<button type="submit" name="action" value="delete" class="confirm-delete">Delete</button>
-				<button type="submit" name="action" value="delete-all" class="delete-all">Delete All</button>
-				<button type="submit" name="action" value="cancel" class="close-popup">Cancel</button>
-			</form>
-		</div>
-	`;
-	const form = deleteBtnFunc(deleteBtn, popupinnerHTML, tasksArray);
-	formSubmitFunc(form, tasksArray);
+	deleteBtnFunc(deleteBtn, tasksArray);
+	formSubmitFunc(tasksArray);
 	commitBtnFunc(commitBtn, tasksArray);
 	inputFunc(tasksContainer, input, closeButton, sortButton, tasksArray);
-
-	// TODO: add new tasks to local storage as well as to allTasks array or something
-	// addTaskToLocalStorage(newTask);
 
 	contentDiv.appendChild(mainDiv);
 }
@@ -131,9 +117,9 @@ Creates:
 	...
 <div>
 */
-function createTasksContainer(mainDiv) {
+export function createTasksContainer(mainDiv) {
 	let tasksContainerDiv = document.createElement('div');
-	tasksContainerDiv.setAttribute('id', 'tasks-container');
+	tasksContainerDiv.classList.add('tasks-container');
 	mainDiv.appendChild(tasksContainerDiv);
 	return tasksContainerDiv;
 }
@@ -147,7 +133,7 @@ function createTasksContainer(mainDiv) {
 	</div>
 </div>
 */
-function createDateActionsContainer(createTasksContainer) {
+export function createDateActionsContainer(createTasksContainer) {
 	let container = document.createElement('div');
 	container.setAttribute('id', 'date-actions-container');
 
@@ -189,7 +175,7 @@ Creates each task based on what user inputs:
 	<span class="material-symbols-outlined high-priority">priority_high</span>
 </div>
 */
-function createTask(tasksContainer, task) {
+export function createTask(tasksContainer, task) {
 	let taskID = task.ID;
 	let taskTitle = task.title;
 	let taskIsHighPrio = task.isHighPrio;
@@ -234,7 +220,7 @@ function createTask(tasksContainer, task) {
 
 function dateDivFunc(dateDiv) {
 	const currentDate = new Date();
-	const year = String(currentDate.getFullYear()).slice(-2);  // Get the last 2 digits of the year (YY)
+	const year = String(currentDate.getFullYear());
 	const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Get month (1-12) and pad with 0 if needed
 	const day = String(currentDate.getDate()).padStart(2, '0'); // Get day and pad with 0 if needed
 	const formattedDate = `${month}/${day}/${year}`;
@@ -242,10 +228,9 @@ function dateDivFunc(dateDiv) {
 	dateDiv.textContent = formattedDate;
 }
 
-function changeOpacity(hide = false) {
+function changeOpacity(hide=false, popup) {
 	const navbar = document.querySelector('header');
 	const content = document.getElementById('content');
-	const popup = document.querySelector('.popup');
 
 	if (hide) {
 		navbar.style.opacity = 0.1;
@@ -262,19 +247,31 @@ function changeOpacity(hide = false) {
 	}
 }
 
-function deleteBtnFunc(deleteBtn, popupinnerHTML, tasksArray) {
+function deleteBtnFunc(deleteBtn, tasksArray) {
 	// create popup and show tasks in tasksArray
-	const popup = document.createElement('div');
-    popup.classList.add('popup');
-	popup.innerHTML = popupinnerHTML;
-	document.body.append(popup);
+	let popup = document.querySelector('.popup');
+	if (!popup) {
+		popup = document.createElement('div');
+		popup.classList.add('popup');
+		popup.innerHTML = `
+			<div class="popup-content">
+				<h3>Select Tasks to Delete</h3>
+				<form class="task-form">
+					<button type="submit" name="action" value="delete" class="confirm-delete">Delete</button>
+					<button type="submit" name="action" value="delete-all" class="delete-all">Delete All</button>
+					<button type="submit" name="action" value="cancel" class="close-popup">Cancel</button>
+				</form>
+			</div>
+		`;
+		document.body.append(popup);
+	}
 
 	let header = popup.querySelector('h3');
 
     // Show the popup when the delete button is clicked and has tasks
     deleteBtn.addEventListener('click', (event) => {
 		event.preventDefault();
-		changeOpacity(true);
+		changeOpacity(true, popup);
 		
 		// clear popup tasks before adding each task in tasks array to form
 		if (tasksArray.length > 0) {
@@ -309,12 +306,10 @@ function deleteBtnFunc(deleteBtn, popupinnerHTML, tasksArray) {
 			header.textContent = 'There are no tasks to delete';
 		}
     });
-
-	const form = document.querySelector('.task-form');
-	return form;
 }
 
-function formSubmitFunc(form, tasksArray) {
+function formSubmitFunc(tasksArray) {
+	const form = document.querySelector('.task-form');
 	form.addEventListener('submit', function(event) {
         event.preventDefault();
 		
@@ -366,22 +361,48 @@ function formSubmitFunc(form, tasksArray) {
 		}
 		
 		// cancel
-		changeOpacity();
+		changeOpacity(false, document.querySelector('.popup'));
     });
-
-	// also allow escape to cancel
-	document.addEventListener('keyup', (event) => {
-		if (event.key === 'Escape') {
-			changeOpacity();
-		}
-	});
 }
 
 function commitBtnFunc(commitBtn, tasksArray) {
-	commitBtn.addEventListener('click', () => {
-		for (const task of tasksArray) {
-			console.log(task.ID, task.isDone);
+	let popup = document.querySelector('#commit-popup');
+	if (!popup) {
+		popup = document.createElement('div');
+		popup.classList.add('popup');
+		popup.setAttribute('id', 'commit-popup');
+		popup.innerHTML = `
+			<div class="popup-content">
+				<h3>There are no tasks to commit to history<h3>
+				<form class="task-form">
+					<button type="submit" name="action" value="ok" class="ok-popup">Ok</button>
+				</form>
+			</div>
+		`;
+		document.body.append(popup);
+	}
+
+	commitBtn.addEventListener('click', (event) => {
+		event.preventDefault();
+		changeOpacity(true, popup);
+
+		let header = popup.querySelector('h3');
+		if (tasksArray.length === 0) {
+			return;
+		} else {
+			let date = new Date();
+			let hour = date.getHours();
+			let minute = date.getMinutes();
+			let second = date.getSeconds();
+
+			localStorage.setItem(`${document.getElementById('date').textContent}-${hour}:${minute}:${second}`, JSON.stringify(tasksArray));
+			header.textContent = `${tasksArray.length} ${tasksArray.length === 1 ? 'task' : 'tasks'} added!`;
 		}
+	});
+
+	const form = document.querySelector('.task-form');
+	form.addEventListener('submit', function(event) {
+		changeOpacity(false, popup);
 	});
 }
 

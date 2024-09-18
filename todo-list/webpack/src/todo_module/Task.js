@@ -40,6 +40,15 @@ export class Task {
         this.#isDone = isDone;
     }
 
+    toJSON() {
+        return {
+            ID: this.#id,
+            title: this.#title,
+            isHighPrio: this.#isHighPrio,
+            isDone: this.#isDone
+        };
+    }
+
     /* 
     generates a unique ID
     source: https://blog.brightcoding.dev/2023/08/06/a-comprehensive-guide-to-generating-unique-ids-in-javascript/#:~:text=The%20Math.,random()%20Method&text=random()%20method%20is%20a,to%20form%20a%20unique%20identifier.

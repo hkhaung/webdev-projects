@@ -116,7 +116,7 @@
 }
 
 /* the actual tasks that the user puts in */
-#tasks-container {
+.tasks-container {
     margin-top: 3vh;
     width: 100%;
     min-width: 450px;
@@ -271,7 +271,7 @@
     border-color: transparent;
 }
 
-.close-popup:hover {
+.close-popup:hover, .ok-popup:hover {
     background-color: #dadada;
     border-color: transparent;
 }
