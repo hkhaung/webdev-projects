@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dropdown Menu</title>
+    </head>
+    <body style="margin: 0; padding: 0">
+        <div style="display: flex; align-items: center; justify-content: center">
+            <div style="display: flex; flex-direction: column; max-width: 500px; padding: 50px">
+                <div>
+                    Dropdowns are typically comprised of two main parts:
+                    <div style="padding-top: 10px">- A button that toggles the dropdown content’s visibility.</div>
+                    <div>- The dropdown content itself.</div>
+                </div>
+                <div style="padding-top: 10px">
+                    The dropdown toggle button should typically only trigger the visibility of the dropdown content on click, while the dropdown
+                    contents should typically only contain items that will trigger an action upon clicking them. Actions can include things like
+                    “Edit”, “Copy”, or “Delete”, or linking you to another part of the site, such as in a navbar.
+                </div>
+                <div style="padding-top: 10px">
+                    Usually used as a button that shows more choices or as part of a navbar. But generally speaking, it's just a button that shows
+                    more actions/buttons after you toggle it.
+                </div>
+
+                <div id="container" style="postion: relative; padding-top: 25px; display: flex; justify-content: center; align-items: center">
+                    <button id="dropdown-menu" style="width: 120px; border: solid 1px; border-radius: 10px; height: 30px; cursor: pointer">
+                        Click Me!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let buttonElement = document.getElementById("dropdown-menu");
+            buttonElement.addEventListener("click", () => {
+                let divElement = document.getElementById("menu");
+                if (divElement) {
+                    divElement.style.display = divElement.style.display === "none" ? "block" : "none";
+                } else {
+                    divElement = document.createElement("div");
+                    divElement.setAttribute("id", "menu");
+                    divElement.style.position = "absolute";
+                    divElement.style.top = "340px";
+
+                    let linkContainer = document.createElement("div");
+                    linkContainer.style.display = "flex";
+                    linkContainer.style.flexDirection = "column";
+                    linkContainer.style.gap = "5px";
+                    linkContainer.style.padding = "10px";
+                    linkContainer.style.backgroundColor = "#f1f1f1";
+                    linkContainer.style.border = "solid 1px";
+                    linkContainer.style.borderRadius = "10px";
+
+                    let a_element0 = document.createElement("a");
+                    a_element0.href = "#HelloWorld";
+                    a_element0.textContent = "Hello World";
+                    a_element0.style.color = "black";
+                    a_element0.style.textDecoration = "none";
+                    a_element0.addEventListener("click", hideMenu);
+                    let a_element1 = document.createElement("a");
+                    a_element1.href = "#Never";
+                    a_element1.textContent = "Never gonna let you down...";
+                    a_element1.style.color = "black";
+                    a_element1.style.textDecoration = "none";
+                    a_element1.addEventListener("click", hideMenu);
+                    let a_element2 = document.createElement("a");
+                    a_element2.href = "#TheStory";
+                    a_element2.textContent = "The story so far:";
+                    a_element2.style.color = "black";
+                    a_element2.style.textDecoration = "none";
+                    a_element2.addEventListener("click", hideMenu);
+
+                    linkContainer.appendChild(a_element0);
+                    linkContainer.appendChild(a_element1);
+                    linkContainer.appendChild(a_element2);
+                    divElement.appendChild(linkContainer);
+
+                    let container = document.getElementById("container");
+                    container.appendChild(divElement);
+                }
+            });
+            
+            document.addEventListener("click", (event) => {
+                if (!buttonElement.contains(event.target)) {
+                    hideMenu();
+                }
+            });
+
+            function hideMenu() {
+                let menu = document.getElementById("menu");
+                if (menu) {
+                    menu.style.display = "none";
+                }
+            }
+        </script>
+    </body>
+</html>
