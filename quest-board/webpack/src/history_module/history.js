@@ -48,16 +48,16 @@ Renders the following
 </div> 
 */
 export function historyDisplay() {
-    let contentDiv = document.getElementById('content');
+    let contentDiv = document.getElementById("content");
 
-    let mainDiv = document.createElement('div');
-	mainDiv.setAttribute('id', 'commit-main');
+    let mainDiv = document.createElement("div");
+    mainDiv.setAttribute("id", "commit-main");
 
-    let commitHistoryDiv = document.createElement('div');
-    commitHistoryDiv.textContent = `Completed Tasks${localStorage.length === 0 ? '' : ` (${localStorage.length})`}`;
-    
-    let commitsContainer = document.createElement('div');
-    commitsContainer.setAttribute('id', 'commits-container');
+    let commitHistoryDiv = document.createElement("div");
+    commitHistoryDiv.textContent = `Completed Tasks${localStorage.length === 0 ? "" : ` (${localStorage.length})`}`;
+
+    let commitsContainer = document.createElement("div");
+    commitsContainer.setAttribute("id", "commits-container");
 
     mainDiv.appendChild(commitHistoryDiv);
     mainDiv.appendChild(commitsContainer);
@@ -69,9 +69,9 @@ export function historyDisplay() {
 
 function sortLocalStorageByKey() {
     function parseDateFromKey(key) {
-        const [datePart, timePart] = key.split('-');
-        const [month, day, year] = datePart.split('/');
-        const [hours, minutes, seconds] = timePart.split(':');
+        const [datePart, timePart] = key.split("-");
+        const [month, day, year] = datePart.split("/");
+        const [hours, minutes, seconds] = timePart.split(":");
 
         return new Date(year, month - 1, day, hours, minutes, seconds);
     }
@@ -92,12 +92,12 @@ function sortLocalStorageByKey() {
 }
 
 function addTaskContainers(commitsContainer) {
-    commitsContainer.innerHTML = '';
+    commitsContainer.innerHTML = "";
 
     if (localStorage.length === 0) {
-        const commitMainDiv = document.getElementById('commit-main');
+        const commitMainDiv = document.getElementById("commit-main");
         const commitHistoryDiv = commitMainDiv.firstElementChild;
-        commitHistoryDiv.textContent = 'No quests added so far...';
+        commitHistoryDiv.textContent = "No quests added so far...";
         return;
     }
 
@@ -107,10 +107,10 @@ function addTaskContainers(commitsContainer) {
         let object = sortedLocalStorage[i];
         let key = object.key;
         let taskObjectArray = object.value;
-        
+
         // create tasks-container
         let tasksContainerDiv = createTasksContainer(commitsContainer);
-        tasksContainerDiv.setAttribute('id', key);
+        tasksContainerDiv.setAttribute("id", key);
 
         // handle date actions container
         handleDateActionsContainer(tasksContainerDiv, key);
@@ -125,25 +125,25 @@ function addTaskContainers(commitsContainer) {
 
 function handleDateActionsContainer(tasksContainerDiv, key) {
     function formatTime(time) {
-        let [hours, minutes, seconds] = time.split(':');
-        const ampm = hours >= 12 ? 'PM' : 'AM';
+        let [hours, minutes, seconds] = time.split(":");
+        const ampm = hours >= 12 ? "PM" : "AM";
 
         hours = hours % 12;
         hours = hours ? hours : 12;
-        hours = hours < 10 ? '0' + hours : hours;
+        hours = hours < 10 ? "0" + hours : hours;
 
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
         return `${hours}:${minutes}:${seconds} ${ampm}`;
     }
 
     let [dateDiv, deleteBtn, commitBtn] = createDateActionsContainer(tasksContainerDiv);
-    let [date, time] = key.split('-');
+    let [date, time] = key.split("-");
     time = formatTime(time);
     dateDiv.textContent = `${date} - ${time}`;
-    deleteBtn.setAttribute('id', 'delete-btn');
-    deleteBtn.textContent = 'Delete From History';
+    deleteBtn.setAttribute("id", "delete-btn");
+    deleteBtn.textContent = "Delete From History";
     commitBtn.remove();
 
     // add delete button functionality
@@ -151,18 +151,18 @@ function handleDateActionsContainer(tasksContainerDiv, key) {
 }
 
 function commitDeleteBtnFunc(deleteBtn, key) {
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.addEventListener("click", () => {
         localStorage.removeItem(key);
         document.getElementById(key).remove();
 
-        const commitMainDiv = document.getElementById('commit-main');
+        const commitMainDiv = document.getElementById("commit-main");
         const commitHistoryDiv = commitMainDiv.firstElementChild;
-        commitHistoryDiv.textContent = `Completed Tasks${localStorage.length === 0 ? '' : ` (${localStorage.length})`}`;
+        commitHistoryDiv.textContent = `Completed Tasks${localStorage.length === 0 ? "" : ` (${localStorage.length})`}`;
 
         if (localStorage.length === 0) {
-            const commitMainDiv = document.getElementById('commit-main');
+            const commitMainDiv = document.getElementById("commit-main");
             const commitHistoryDiv = commitMainDiv.firstElementChild;
-            commitHistoryDiv.textContent = 'No quests added so far...';
+            commitHistoryDiv.textContent = "No quests added so far...";
             return;
         }
     });
@@ -171,22 +171,21 @@ function commitDeleteBtnFunc(deleteBtn, key) {
 function handleTaskInTaskObject(tasksContainerDiv, taskObjectArray) {
     for (let i = taskObjectArray.length - 1; i >= 0; i--) {
         let taskObject = taskObjectArray[i];
-        let [iconContainerBtn, circleIcon, checkIcon, _, taskIsHighPrioIcon] = createTask(tasksContainerDiv, taskObject);        
-        iconContainerBtn.setAttribute('id', 'commit-icon-container');
-        circleIcon.style.cursor = 'default';
-        checkIcon.style.cursor = 'default';
-        taskIsHighPrioIcon.style.cursor = 'default';
+        let [iconContainerBtn, circleIcon, checkIcon, _, taskIsHighPrioIcon] = createTask(tasksContainerDiv, taskObject);
+        iconContainerBtn.setAttribute("id", "commit-icon-container");
+        circleIcon.style.cursor = "default";
+        checkIcon.style.cursor = "default";
+        taskIsHighPrioIcon.style.cursor = "default";
         handleIconContainerBtn(circleIcon, checkIcon, taskObject);
     }
 }
 
 function handleIconContainerBtn(circleIcon, checkIcon, task) {
     if (task.isDone) {
-        circleIcon.classList.replace('shown', 'hidden');
-        checkIcon.classList.replace('hidden', 'shown');
+        circleIcon.classList.replace("shown", "hidden");
+        checkIcon.classList.replace("hidden", "shown");
     } else {
-        checkIcon.classList.replace('shown', 'hidden');
-        circleIcon.classList.replace('hidden', 'shown');
+        checkIcon.classList.replace("shown", "hidden");
+        circleIcon.classList.replace("hidden", "shown");
     }
 }
-

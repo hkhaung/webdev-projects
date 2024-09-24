@@ -25,7 +25,7 @@
 
 #commits-container > div:only-child {
     width: 450px;
-    margin: 0 auto;   
+    margin: 0 auto;
 }
 
 #commits-container .tasks-container {

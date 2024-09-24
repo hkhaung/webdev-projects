@@ -45,7 +45,7 @@ export class Task {
             ID: this.#id,
             title: this.#title,
             isHighPrio: this.#isHighPrio,
-            isDone: this.#isDone
+            isDone: this.#isDone,
         };
     }
 
@@ -54,8 +54,6 @@ export class Task {
     source: https://blog.brightcoding.dev/2023/08/06/a-comprehensive-guide-to-generating-unique-ids-in-javascript/#:~:text=The%20Math.,random()%20Method&text=random()%20method%20is%20a,to%20form%20a%20unique%20identifier.
     */
     #generateRandomID() {
-        return 'ID_' + Math.random().toString(36).substr(2, 9);
+        return "ID_" + Math.random().toString(36).substr(2, 9);
     }
 }
-
-
