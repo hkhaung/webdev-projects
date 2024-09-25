@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Image Carousel</title>
+        <style>
+            .container {
+                max-width: 500px;
+                position: relative;
+                margin: auto;
+                max-height: 330px;
+                overflow: hidden;
+                border: solid 1px;
+            }
+
+            .image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .prev,
+            .next {
+                cursor: pointer;
+                position: absolute;
+                width: auto;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 25px;
+                padding: 20px;
+                border: none;
+                text-decoration: none; /* Remove underline */
+                user-select: none; /* Disable text selection */
+            }
+
+            .next {
+                right: 0;
+            }
+
+            .prev:hover,
+            .next:hover {
+                color: white;
+            }
+
+            .navigation-dots {
+                padding-top: 10px;
+                display: flex;
+                justify-content: space-around;
+                max-width: 100px;
+                margin: auto;
+            }
+
+            .dot {
+                cursor: pointer;
+                height: 10px;
+                width: 10px;
+                border: solid 1px;
+                border-radius: 50%;
+            }
+
+            .dot:hover,
+            .dot.selected {
+                color: gray;
+                background-color: gray;
+            }
+        </style>
+    </head>
+
+    <body style="margin: 0; padding: 0">
+        <div style="display: flex; align-items: center; justify-content: center; padding-bottom: 30px">
+            <div style="display: flex; flex-direction: column; gap: 10px; max-width: 500px">
+                <div style="padding-top: 50px">
+                    Image carousels are great for advertising, showcasing things, showing several things using limited screen
+                    size, and can actually be made using things you’ve already learned! They are also highly customizable - you
+                    can make them auto-scroll, allow users to manually cycle between slides, skip to certain slides, etc.
+                </div>
+                <div>
+                    Typically, they consist of a div that acts as the “picture frame”, where behind that div, there is another
+                    much wider div containing the carousel’s images. This strip of images can then move behind the picture frame,
+                    showing a different image depending on what part of the strip is visible. Any additional controls or features
+                    can then be placed on top of the entire thing.
+                </div>
+
+                <div>
+                    Below is an attempt to make an image carousel that is capable of auto-scrolling, allowing users to manually
+                    cycle between slides, and skip to certain slides. (Images from unsplash)
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- alternatively, you can "put" an image into the div and use background-image css property, but good to use img tag so you can put alt image value -->
+            <!-- <div id="img-0" class="image"></div> -->
+
+            <div>
+                <img class="image" alt="close-up-heart-shaped" />
+            </div>
+
+            <a class="prev">&#10094;</a>
+            <a class="next">&#10095;</a>
+        </div>
+
+        <div class="navigation-dots">
+            <span class="dot 0 selected"></span>
+            <span class="dot 1"></span>
+            <span class="dot 2"></span>
+            <span class="dot 3"></span>
+            <span class="dot 4"></span>
+        </div>
+
+        <script>
+            images = [
+                [
+                    "https://images.unsplash.com/photo-1727125893979-5d81a3443ca1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "close-up-heart-shaped",
+                ],
+                [
+                    "https://images.unsplash.com/photo-1727013031787-858020654797?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "mountains",
+                ],
+                [
+                    "https://images.unsplash.com/photo-1726828581304-1bd8a2b90246?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "night-sky-stars",
+                ],
+                [
+                    "https://images.unsplash.com/photo-1725610588142-b2b0a03c29d4?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "person-riding-bike-foggy-day",
+                ],
+                [
+                    "https://images.unsplash.com/photo-1727162334294-170987f6b31b?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                    "cool-car",
+                ],
+            ];
+
+            // start with first image
+            const imgElement = document.querySelector(".image");
+            imgElement.src = images[0][0];
+            imgElement.setAttribute("alt", images[0][1]);
+            imgElement.classList.add("0");
+
+            let index = 0;
+
+            const nav_dots = document.querySelector(".navigation-dots");
+            for (let i = 0; i < nav_dots.children.length; i++) {
+                const dot = nav_dots.children[i];
+                dot.addEventListener("click", () => {
+                    let dot_index = Number(dot.classList.item(1));
+
+                    imgElement.src = images[dot_index][0];
+                    imgElement.setAttribute("alt", images[dot_index][1]);
+                    imgElement.classList.replace(imgElement.classList.item(1), dot_index.toString());
+
+                    for (let ii = 0; ii < nav_dots.children.length; ii++) {
+                        if (nav_dots.children[ii].classList.contains("selected")) {
+                            nav_dots.children[ii].classList.remove("selected");
+                            break;
+                        }
+                    }
+                    nav_dots.children[dot_index].classList.add("selected");
+
+                    index = dot_index;
+                });
+            }
+
+            const prevElement = document.querySelector(".prev");
+            prevElement.addEventListener("click", () => {
+                let img_index = Number(imgElement.classList.item(1));
+                if (img_index > 0) {
+                    imgElement.src = images[img_index - 1][0];
+                    imgElement.setAttribute("alt", images[img_index - 1][1]);
+                    imgElement.classList.replace(img_index.toString(), (img_index - 1).toString());
+
+                    nav_dots.children[img_index].classList.remove("selected");
+                    nav_dots.children[img_index - 1].classList.add("selected");
+
+                    index = img_index - 1;
+                }
+            });
+
+            const nextElement = document.querySelector(".next");
+            nextElement.addEventListener("click", () => {
+                let img_index = Number(imgElement.classList.item(1));
+                if (img_index < images.length) {
+                    imgElement.src = images[img_index + 1][0];
+                    imgElement.setAttribute("alt", images[img_index + 1][1]);
+                    imgElement.classList.replace(img_index.toString(), (img_index + 1).toString());
+
+                    nav_dots.children[img_index].classList.remove("selected");
+                    nav_dots.children[img_index + 1].classList.add("selected");
+
+                    index = img_index + 1;
+                }
+            });
+
+            function changeSlide() {
+                nav_dots.children[index].classList.remove("selected");
+                index = (index + 1) % images.length;
+                imgElement.src = images[index][0];
+                imgElement.setAttribute("alt", images[index][1]);
+                nav_dots.children[index].classList.add("selected");
+            }
+
+            setInterval(changeSlide, 3000);
+        </script>
+    </body>
+</html>
