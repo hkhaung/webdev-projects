@@ -57,8 +57,26 @@
     ![website result](restaurant-page/result.png)
 
 10. Todo List
+- animations on some components would make this look better
+- currently uses local storage -> would be better to have a backend
 
+11. Spotify API
+- (will come back to this later)
 
-Credits:
+12. Battleship
+- 
+
+## Datastructures and algos:
+I already have a good understanding of datastructures and algorithms but rewrote some datastructures in JS for practice. It's also good review!
+
+Datastructures implemented:
+- linkedlist
+- hashmap
+- balanced binary search tree
+
+## Unit Tests
+- Made unit tests using Jest
+
+## Credits:
 - fonts are from Google Fonts
 - images are from unsplash, freepik, and others are saved from google search
