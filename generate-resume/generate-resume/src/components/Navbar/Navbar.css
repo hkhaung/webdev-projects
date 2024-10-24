@@ -1,0 +1,14 @@
+.navbar {
+    padding: 20px;
+    background-color: rgb(238, 238, 238);
+}
+
+.logo {
+    text-align: center;
+    font-size:x-large;
+}
+
+a {
+    all: unset;
+    cursor: pointer
+}
