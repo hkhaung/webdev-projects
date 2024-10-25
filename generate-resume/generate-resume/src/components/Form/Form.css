@@ -1,0 +1,93 @@
+fieldset {
+	margin-top: 50px;
+	padding: 20px;
+	border: none;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.group-title {
+	padding-bottom: 25px;
+}
+
+.label-input-container {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.label-input-container label {
+	width: 150px;
+}
+
+.label-input-container input {
+	width: 200px;
+	height: 25px;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 14px;
+	font-family: inherit;
+}
+
+.section-btns {
+	display: flex;
+	gap: 50px;
+}
+
+.section-btns button, #generate-btn {
+	all: unset;
+	text-align: center;
+	width: 100px;
+	height: 25px;
+	border: solid 1px;
+	border-radius: 20px;
+	cursor: pointer;
+	
+	transition: background-color 0.3s ease-out;
+}
+
+.section-btns button:hover {
+	color: white;
+	background-color: black;
+}
+
+.section-btns .delete-btn:hover {
+	background-color: rgb(200, 0, 0);
+}
+
+.education-section .label-input-container:last-child, .experience-section .label-input-container:last-child {
+	padding-bottom: 25px;
+}
+
+#generate {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#generate-btn {
+	margin-top: 20px;
+	height: 50px;
+	width: 360px;
+}
+
+#generate-btn:hover {
+	color: white;
+	background-color: rgb(138, 217, 20);
+}
+
+#results-container {
+	margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#results-container p {
+	margin-left: min(150px, 500px);
+	margin-right: min(150px, 500px);
+	text-align: left;
+}

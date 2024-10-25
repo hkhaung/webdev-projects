@@ -1,5 +1,5 @@
 import Navbar from './components/Navbar/Navbar'
-import UserInfo from './components/UserInfo/UserInfo'
+import Form from './components/Form/Form'
 import './App.css'
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <>
       <div>
         <Navbar />
-        <UserInfo />
+        <Form />
       </div>
     </>
   )

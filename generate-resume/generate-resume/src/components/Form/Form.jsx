@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react';
-import './UserInfo.css'
+import './Form.css'
 
 
-function EducationForm() {
-	const [educationSections, setEducationSections] = useState([
-		{ id: 0, school: '', degree: '', start: '', end: '' },
-	]);
-
+function EducationForm({educationSections, setEducationSections}) {
 	function addMoreSection() {
 		setEducationSections([
 			...educationSections,
@@ -68,11 +64,7 @@ function EducationForm() {
 	);
 }
 
-function ExperienceForm() {
-	const [experienceSections, setExperienceSections] = useState([
-		{id: 0, company: '', title: '', start: '', end: '', bulletPoints: ''}
-	]);
-
+function ExperienceForm({experienceSections, setExperienceSections}) {
 	const addMoreSection = () => {
 		setExperienceSections([
 			...experienceSections,
@@ -97,7 +89,6 @@ function ExperienceForm() {
 		});
 
 		setExperienceSections(updatedSections);
-		console.log(updatedSections);
 	}
 
 	return (
@@ -140,25 +131,18 @@ function ExperienceForm() {
 }
 
 
-function UserInfo() {
-	const [userInfo, setUserInfo] = useState({name: '', cityState: '', phone: '', email: '', linkedIn: ''});
-
+function UserInfo({userInfo, setUserInfo, educationSections, setEducationSections, experienceSections, setExperienceSections}) {
 	function handleInput(field, value) {
 		setUserInfo({...userInfo, [field]: value})
-		console.log(userInfo);
 	}
 
 	// useEffect(() => {
   //   console.log('Updated userInfo:', userInfo);
   // }, [userInfo]); // This runs every time userInfo changes
 
-	const handleClick = () => {
-		document.body.innerHTML = '';
-	}
-
 	return (
-		<div>
-			<form>
+		<>
+			<div className='basic section'>
 				<fieldset>
 					<div className='group-title'>Let&apos;s start with basic info</div>
 					<div className='label-input-container'>
@@ -186,19 +170,107 @@ function UserInfo() {
 						<input type='text' onChange={(event) => handleInput('linkedin', event.target.value)}></input>
 					</div>
 				</fieldset>
+			</div>
 
-				<div className='education section'>
-					<EducationForm />
-				</div>
+			<div className='education section'>
+				<EducationForm educationSections={educationSections} setEducationSections={setEducationSections}/>
+			</div>
 
-				<div className='experience section'>
-					<ExperienceForm />
-				</div>
-				
-				<button id='start-btn' onClick={handleClick}>Generate</button>
-			</form>
-		</div>
+			<div className='experience section'>
+				<ExperienceForm experienceSections={experienceSections} setExperienceSections={setExperienceSections}/>
+			</div>
+		</>
 	)
 }
 
-export default UserInfo;
+function Form() {
+	function generate() {
+		// for now, no formatting, just display it
+		// and empty form inputs are filled in random strings of text
+
+		function generateRandomString(length) {
+			const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			let result = '';
+		
+			for (let i = 0; i < length; i++) {
+				const randomIndex = Math.floor(Math.random() * characters.length);
+				result += characters.charAt(randomIndex);
+			}
+		
+			return result;
+		}
+
+		function helper(key, value) {
+			if (key === 'id') {
+				return;
+			}
+
+			if (value === '') {
+				value = generateRandomString(Math.random() * 25);
+			}
+
+			let pElement = document.createElement('p');
+			pElement.textContent = `${key}: `;
+
+			generatedDiv.append(pElement);
+
+			// Typing effect
+			const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+			let typedText = '';
+			let index = 0;
+
+			const interval = setInterval(() => {
+				if (index < value.length) {
+					typedText += value[index];
+					pElement.textContent = `${key}: ${typedText}${characters[Math.floor(Math.random() * characters.length)]}`;
+					index++;
+				} else {
+					pElement.textContent = `${key}: ${value}`;
+					clearInterval(interval); // Stop the interval
+				}
+			}, 100);
+		}
+
+		const formElements = document.getElementsByTagName('form');
+		formElements[0].style.display = 'none';
+
+		let generatedDiv = document.createElement('div');
+		generatedDiv.setAttribute('id', 'results-container');
+
+		for (const [key, value] of Object.entries(userInfo)) {
+			helper(key, value);
+		}
+
+		for (const objArray of [educationSections, experienceSections]) {
+			for (const obj of objArray) {
+				for (const [key, value] of Object.entries(obj)) {
+					helper(key, value);
+				}
+			}
+		}
+
+		document.body.appendChild(generatedDiv);
+	}
+
+	const [userInfo, setUserInfo] = useState({name: '', cityState: '', phone: '', email: '', linkedIn: ''});
+	const [educationSections, setEducationSections] = useState([{id: 0, school: '', degree: '', start: '', end: ''}]);
+	const [experienceSections, setExperienceSections] = useState([{id: 0, company: '', title: '', start: '', end: '', bulletPoints: ''}]);
+
+	return (
+		<>
+			<form>
+				<UserInfo 
+					userInfo={userInfo} setUserInfo={setUserInfo}
+					educationSections={educationSections} setEducationSections={setEducationSections}
+					experienceSections={experienceSections} setExperienceSections={setExperienceSections}
+				/>
+
+				<div id='generate'>
+					<button type='button' id='generate-btn' onClick={generate}>Generate</button>
+				</div>
+			</form>
+		</>
+	)
+}
+
+export default Form;
