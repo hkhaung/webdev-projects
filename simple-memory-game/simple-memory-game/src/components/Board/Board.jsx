@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import './Board.css';
 
 function Card( {textNumber='0'} ) {
@@ -11,43 +11,69 @@ function Card( {textNumber='0'} ) {
   )
 }
 
+function TimerBar() {
+  return (
+    <>
+      <div className='timerbar'>
+        <div></div>
+      </div>
+    </>
+  )
+}
 
-function Board( {maxNumber=36} ) {
-  const cardsArray = Array.from({ length: maxNumber }, (_, i) => i + 1);
-  const seenNum = new Set();
-
+function Board({ maxNumber=36 }) {
   const [visibleCard, setVisibleCard] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(true);
+  const [showAllCards, setShowAllCards] = useState(false);
+
+  const cardsArray = useMemo(() => {
+    const seenNum = new Set();
+    return Array.from({ length: maxNumber }, () => {
+      let randomNum;
+      do {
+        randomNum = Math.floor(Math.random() * maxNumber) + 1;
+      } while (seenNum.has(randomNum));
+      
+      seenNum.add(randomNum);
+      return randomNum;
+    });
+  }, [maxNumber]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setVisibleCard(index => (index + 1) % maxNumber);
-    }, 3000);
+    if (!isFlipping) return;
 
-    return () => clearInterval(interval);
-  }, [maxNumber])
+    let interval = setInterval(() => {
+      setVisibleCard((index) => (index + 1) % maxNumber);
+    }, 3000);
   
-  const showCard = (index) => {
-    setVisibleCard(index);
-  };
+    return () => clearInterval(interval);
+  }, [isFlipping, maxNumber]);
+
+  function handleStart() {
+    setIsFlipping(false);
+    setShowAllCards(true);
+    setTimeout(() => {
+      setIsFlipping(true);
+      setShowAllCards(false);
+    }, 10000);
+  }
 
   return (
-    <div className='board'>
-      <div className='grid-container'>
-        {cardsArray.map(() => {
-          let randomNum;
-          do {
-            randomNum = Math.floor(Math.random() * maxNumber) + 1;
-          } while (seenNum.has(randomNum));
+    <div>
+      <TimerBar />
 
-          seenNum.add(randomNum);
-
-          return (
-            <div key={randomNum - 1} className={`grid-item ${visibleCard === randomNum - 1 ? 'visible' : 'hidden'}`}>
+      <div className='board'>
+        <div className='grid-container'>
+          {cardsArray.map((randomNum) => (
+            <div
+              key={randomNum - 1}
+              className={`grid-item ${showAllCards || visibleCard === randomNum - 1 ? 'visible' : 'hidden'}`}
+            >
               <Card textNumber={randomNum.toString()} />
             </div>
-          );
-        })}
-        <button className='start-btn'>Start</button>
+          ))}
+          <button className="start-btn" onClick={handleStart}>Start</button>
+        </div>
       </div>
     </div>
   );
