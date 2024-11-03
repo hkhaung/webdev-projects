@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import './Board.css';
 
 function Card( { textNumber='0' } ) {
@@ -18,23 +18,19 @@ function Card( { textNumber='0' } ) {
   )
 }
 
-function TimerBar({ isVisible=false }) {
-  return (
-    <>
-      <div className={`timerbar ${isVisible ? 'visible' : 'hidden'}`}>
-        <div></div>
-      </div>
-    </>
-  )
-}
+function Board({ started, setStarted, maxNumber=4, totalCells=36 }) {
+  function handleStart() {
+    setIsFlipping(false);
+    setIsHoverActive(false);
+    setVisibleCard(null);
+    setStarted(true);
 
-function Board({ maxNumber=4, totalCells=36 }) {
+    clearInterval();
+  }
+
   const [visibleCard, setVisibleCard] = useState(0);
   const [isFlipping, setIsFlipping] = useState(true);
   const [isHoverActive, setIsHoverActive] = useState(true);
-  
-  const [showAllCards, setShowAllCards] = useState(false);
-  const [timerBarVisible, setTimerBarVisible] = useState(false);
 
   const cardsArray = Array.from({ length: maxNumber }, (_, i) => i + 1);
   const gridArray = Array.from({ length: totalCells }, () => null);
@@ -61,38 +57,35 @@ function Board({ maxNumber=4, totalCells=36 }) {
   }, [isFlipping, numberIndices.length]);
 
 
-  function handleStart() {
-    setIsFlipping(false);
-    setShowAllCards(true);
-    setTimerBarVisible(true);
-    setIsHoverActive(false);
-
-    setTimeout(() => {
-      setShowAllCards(false);
-      setTimerBarVisible(false);
-      setVisibleCard(null);
-    }, 10000);
-
-    clearInterval();
-  }
-
   return (
-    <div>
-      <TimerBar isVisible={timerBarVisible} />
-
-      <div className='board'>
-        <div className={`grid-container ${isHoverActive ? 'hover-enabled' : 'game-started'}`}>
-          {gridArray.map((value, index) => (
-            <div key={index} className={`grid-item ${showAllCards || numberIndices[visibleCard] === index ? 'visible' : 'hidden'}`}>
-              <Card textNumber={value ? value.toString() : ''} />
-            </div>
-          ))}
-          {isHoverActive && (
-            <button className="start-btn" onClick={handleStart}>Start</button>
-          )}
+    <>
+      {!started && (
+        <div className='board'>
+          <div className={`grid-container ${isHoverActive ? 'hover-enabled' : ''}`}>
+            {gridArray.map((value, index) => (
+              <div key={index} className={`grid-item ${numberIndices[visibleCard] === index ? 'visible' : 'hidden'}`}>
+                <Card textNumber={value ? value.toString() : ''} />
+              </div>
+            ))}
+            {isHoverActive && (
+              <button className="start-btn" onClick={handleStart}>Start</button>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      {started && (
+        <div className='board'>
+          <div className={`grid-container`}>
+            {gridArray.map((value, index) => (
+              <div key={index} className={`grid-item`}>
+                <Card textNumber={value ? value.toString() : ''} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
