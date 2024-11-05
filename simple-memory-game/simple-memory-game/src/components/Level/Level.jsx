@@ -15,6 +15,9 @@ function TimerBar({ isVisible=false }) {
 
 
 function Level({ started, setStarted, level=0 }) {
+  const [showAllCards, setShowAllCards] = useState(true);
+  const [timerVisible, setTimerVisible] = useState(true);
+
   const startNumber = 4;
   let maxNumber;
   if (level === 0) {
@@ -23,12 +26,18 @@ function Level({ started, setStarted, level=0 }) {
     maxNumber = startNumber + level;
   }
 
-  const [showAllCards, setShowAllCards] = useState(true);
+  useEffect(() => {
+    if (started) {
+      setTimeout(() => {
+        setTimerVisible(false);
+      }, 10000);
+    }
+  });
 
   return (
     <>
       {started && (
-        <TimerBar isVisible={showAllCards} />
+        <TimerBar isVisible={timerVisible} />
       )}
       <div className={`level lvl-${level}`}>
         <Board started={started} setStarted={setStarted} maxNumber={maxNumber} />

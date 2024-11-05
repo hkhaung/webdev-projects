@@ -88,3 +88,9 @@
 .hover-enabled:hover .grid-item {
   opacity: 0;
 }
+
+
+/* card flipping when game start */
+.flipped {
+  visibility: hidden;
+}
