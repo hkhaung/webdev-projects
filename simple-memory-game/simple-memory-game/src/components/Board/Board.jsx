@@ -18,13 +18,10 @@ function Card( { textNumber='', isVisible } ) {
 
   return (
     <div
-      className={`card ${isVisible ? 'visible' : 'hidden'}`}
+      className={`card ${isFlipped ? 'visible' : ''}`}
       onClick={handleFlip}
     >
-      <div className={`container ${isFlipped ? 'flipped' : ''}`}>
-        <div className="card-front">{textNumber}</div>
-        <div className="card-back"></div>
-      </div>
+      {textNumber}
     </div>
   );
 }
@@ -80,29 +77,20 @@ function Board({ started, setStarted, maxNumber=4, totalCells=36 }) {
 
   return (
     <>
-      <div className='board'>
+      {/* <div className='board'>
         <div className={`grid-container ${isHoverActive ? 'hover-enabled' : ''}`}>
           {gridArray.map((value, index) => (
-            // <div key={index} className={`grid-item ${numberIndices[visibleCard] === index ? 'visible' : 'hidden'}`}>
-            //   <Card textNumber={value ? value.toString() : ''} />
-            // </div>
-            <div key={index} className='grid-item'>
-              <Card
-                textNumber={value ? value.toString() : ''}
-                isVisible={started || numberIndices[visibleCard] === index}
-              />
-            </div>
-          ))}
-          {/* {gridArray.map((value, index) => (
-              <div key={index} className={`grid-item`}>
-                <Card textNumber={value ? value.toString() : ''} />
+              <div key={index} className={`grid-item ${numberIndices[visibleCard] === index ? 'visible' : 'hidden'}`}>
+                  <Card
+                    textNumber={value ? value.toString() : ''}
+                  />
               </div>
-          ))} */}
+          ))}
           {isHoverActive && (
             <button className="start-btn" onClick={handleStart}>Start</button>
           )}
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
