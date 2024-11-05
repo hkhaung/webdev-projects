@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import './Board.css';
 
-function Card( { textNumber='', isVisible } ) {
+function Card( { textNumber='', isVisible=false } ) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   function handleFlip() {
@@ -18,10 +18,15 @@ function Card( { textNumber='', isVisible } ) {
 
   return (
     <div
-      className={`card ${isFlipped ? 'visible' : ''}`}
+      className={`card`}
       onClick={handleFlip}
     >
-      {textNumber}
+      {!isVisible && (<div>{textNumber}</div>)}
+      {isVisible && (
+        <div className={`${isFlipped ? 'hidden' : 'visible'}`}>
+          {textNumber}
+        </div>
+      )}
     </div>
   );
 }
@@ -77,12 +82,13 @@ function Board({ started, setStarted, maxNumber=4, totalCells=36 }) {
 
   return (
     <>
-      {/* <div className='board'>
+      <div className='board'>
         <div className={`grid-container ${isHoverActive ? 'hover-enabled' : ''}`}>
           {gridArray.map((value, index) => (
-              <div key={index} className={`grid-item ${numberIndices[visibleCard] === index ? 'visible' : 'hidden'}`}>
+              <div key={index} className={`grid-item`}>
                   <Card
                     textNumber={value ? value.toString() : ''}
+                    isVisible={started}
                   />
               </div>
           ))}
@@ -90,7 +96,7 @@ function Board({ started, setStarted, maxNumber=4, totalCells=36 }) {
             <button className="start-btn" onClick={handleStart}>Start</button>
           )}
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
