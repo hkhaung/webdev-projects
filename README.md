@@ -1,3 +1,13 @@
+## Docker
+You can use Docker to access the projects on your browser locally.
+```
+docker build -t [put any name you want here] .
+docker run -p 80:80 [use the name you put above]
+```
+
+Then, in your browser, to access a project, put:
+`localhost/[directory name here]`
+
 ## Projects
 
 1. Landing page
@@ -59,12 +69,11 @@
 10. Todo List
 - animations on some components would make this look better
 - currently uses local storage -> would be better to have a backend
+- TODO: add result picture
 
 11. Spotify API
 - (will come back to this later)
-
-12. Battleship
-- 
+- the plan is to somehow use the api, go through playlists that user owns and specifies, and then reorganize the songs in it to playlists matching its genre/vibe
 
 ## Datastructures and algos:
 I already have a good understanding of datastructures and algorithms but rewrote some datastructures in JS for practice. It's also good review!
