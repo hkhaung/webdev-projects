@@ -1,29 +1,20 @@
 import { useState, useEffect } from 'react';
 import './App.css'
 import Level from './components/Level/Level';
-import Board from './components/Board/Board';
 
 function App() {
-  const [gameStarted, setGameStarted] = useState(false);
+  const [winLose, setWinLose] = useState(null);
   const [level, setLevel] = useState(0);
+
+  useEffect(() => {
+    if (winLose === 1) {
+      setLevel((prevLevel) => prevLevel + 1);
+    }
+  }, [winLose]);
 
   return (
     <>
-      {/* <div className={`menu ${gameStarted} ? 'display-none' : ''`}>
-        <Board
-          started={gameStarted}
-          setStarted={setGameStarted}
-          maxNumber={18}
-          totalCells={36}
-        />
-      </div> */}
-
-      <div className='game'>
-        {/* {gameStarted && (
-          <Level started={gameStarted} setStarted={setGameStarted} level={level} />
-        )} */}
-        <Level started={gameStarted} setStarted={setGameStarted} level={level} />
-      </div>
+      <Level level={level} setWinLose={setWinLose} />
     </>
   )
 }

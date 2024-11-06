@@ -2,10 +2,15 @@ import { useState } from 'react';
 import './Level.css';
 import Board from '../Board/Board';
 
+/* A level will consist of two boards
+one will be a board without functionality -> just for show / idle
+the other will be the actual game board 
 
-function Level({ started, setStarted, level=0 }) {
-  const [showAllCards, setShowAllCards] = useState(true);
+The visual/idle board will show random cards and the cards will flip in an interval sequentially
+When hovered, it will show a start button and when clicked, idle board will disappear.
 
+*/
+function Level({ level=0, setWinLose }) {
   const startNumber = 4;
   let maxNumber;
   if (level === 0) {
@@ -15,10 +20,8 @@ function Level({ started, setStarted, level=0 }) {
   }
 
   return (
-    <>
-      <div className={`level lvl-${level}`}>
-        <Board started={started} setStarted={setStarted} maxNumber={maxNumber} />
-      </div>
+    <> 
+      <Board maxNumber={maxNumber} setWinLose={setWinLose}/>
     </>
   )
 }

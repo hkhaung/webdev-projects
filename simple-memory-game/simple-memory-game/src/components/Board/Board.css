@@ -94,3 +94,34 @@
 .flipped {
   visibility: hidden;
 }
+
+
+/* timer bar styling */
+.timerbar {
+  width: 100%;
+  height: 20px;  
+  border: solid 1px;
+  border-radius: 10px;
+  color: transparent;
+  background-color: #e0e0e0;
+  overflow: hidden;
+
+  margin-bottom: 25px;
+}
+
+.timerbar div {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background-color: pink;
+  animation: fill 10s linear backwards;
+}
+
+@keyframes fill {
+  from {
+    width: 125%;
+  }
+  to {
+    width: 0%;
+  }
+}
