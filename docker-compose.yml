@@ -1,0 +1,125 @@
+services:
+  # config for react+vite projects
+  generate-resume:
+    build:
+      context: ./generate-resume/generate-resume
+      dockerfile: ../../Dockerfile
+    volumes:
+      - ./generate-resume/generate-resume:/app
+      - /app/node_modules
+    ports:
+      - '5173:5173'  # default port for Vite's dev server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run dev -- --host --force
+
+  simple-memory-game:
+    build:
+      context: ./simple-memory-game/simple-memory-game
+      dockerfile: ../../Dockerfile
+    volumes:
+      - ./simple-memory-game/simple-memory-game:/app
+      - /app/node_modules
+    ports:
+      - '5174:5173'  # default port for Vite's dev server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run dev -- --host --force
+
+  # config for webpack projects
+  quest-board:
+    build:
+      context: ./quest-board/webpack
+      dockerfile: ../../Dockerfile
+    volumes:
+      - ./quest-board/webpack:/app
+      - /app/node_modules
+    ports:
+      - '3001:3000'  # port for webpack dev server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run start -- --host 0.0.0.0
+
+  restaurant-page:
+    build:
+      context: ./restaurant-page/webpack
+      dockerfile: ../../Dockerfile
+    volumes:
+      - ./restaurant-page/webpack:/app
+      - /app/node_modules
+    ports:
+      - '3002:3000'  # port for webpack dev server
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm run start -- --host 0.0.0.0
+
+  # config for static files
+  calculator-game:
+    image: nginx:alpine  
+    volumes:
+      - ./calculator-game:/usr/share/nginx/html:ro
+    ports:
+      - '8080:80'
+
+  dashboard:
+    image: nginx:alpine  
+    volumes:
+      - ./dashboard:/usr/share/nginx/html:ro
+    ports:
+      - '8081:80'
+
+  datastructures:
+    image: nginx:alpine  
+    volumes:
+      - ./datastructures:/usr/share/nginx/html:ro
+    ports:
+      - '8082:80'
+
+  dynamic-user-interface:
+    image: nginx:alpine  
+    volumes:
+      - ./dynamic-user-interface:/usr/share/nginx/html:ro
+    ports:
+      - '8083:80'
+  
+  etch-a-sketch:
+    image: nginx:alpine  
+    volumes:
+      - ./etch-a-sketch:/usr/share/nginx/html:ro
+    ports:
+      - '8084:80'
+
+  landingpage:
+    image: nginx:alpine  
+    volumes:
+      - ./landingpage:/usr/share/nginx/html:ro
+    ports:
+      - '8085:80'
+  
+  library:
+    image: nginx:alpine  
+    volumes:
+      - ./library:/usr/share/nginx/html:ro
+    ports:
+      - '8086:80'
+
+  rockpaperscissors:
+    image: nginx:alpine  
+    volumes:
+      - ./rockpaperscissors:/usr/share/nginx/html:ro
+    ports:
+      - '8087:80'
+
+  signup-form:
+    image: nginx:alpine  
+    volumes:
+      - ./signup-form:/usr/share/nginx/html:ro
+    ports:
+      - '8088:80'
+
+  tic-tac-toe:
+    image: nginx:alpine  
+    volumes:
+      - ./tic-tac-toe:/usr/share/nginx/html:ro
+    ports:
+      - '8089:80'

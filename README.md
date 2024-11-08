@@ -1,12 +1,25 @@
 ## Docker
-You can use Docker to access the projects on your browser locally.
+You can use Docker to access the projects on your browser locally and also develop for them.
+Make sure docker is already running and do the following:
 ```
-docker build -t [put any name you want here] .
-docker run -p 80:80 [use the name you put above]
+docker-compose up
 ```
 
-Then, in your browser, to access a project, put:
-`localhost/[directory name here]`
+Then, in your browser, to access a project, you should be able to see the projects.
+React + Vite projects use the following ports:
+* http://localhost:5173/
+* http://localhost:5174/
+
+Webpack projects use the following ports:
+* http://localhost:3001/
+* http://localhost:3002/
+
+Static or plain html/css and javascript projects use the following ports (8080 to 8089):
+* http://localhost:8080/
+* http://localhost:8081/
+* http://localhost:8082/
+* http://localhost:8083/
+* ...
 
 ## Projects
 
