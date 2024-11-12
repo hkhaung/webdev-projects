@@ -16,12 +16,13 @@ function Level({ level=0, setWinLose }) {
   if (level === 0) {
     maxNumber = startNumber;
   } else {
+    console.log(level, typeof(level), 'HEY');
     maxNumber = startNumber + level;
   }
 
   return (
     <> 
-      <Board maxNumber={maxNumber} setWinLose={setWinLose}/>
+      <Board level={level + 1} maxNumber={maxNumber} setWinLose={setWinLose}/>
     </>
   )
 }

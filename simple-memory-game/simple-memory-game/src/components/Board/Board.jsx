@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import './Board.css';
 
 function TimerBar({ isVisible=false }) {
@@ -11,17 +11,18 @@ function TimerBar({ isVisible=false }) {
   )
 }
 
-function Card( { text, maxNumber, isVisible=true, prevCardFlipped=null, setBoardVisible=null, setLives=null } ) {
+function Card( { text, maxNumber, isVisible=true, prevCardFlipped, setBoardVisible, setLives, setLevelComplete } ) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   function handleFlip() {
     setIsFlipped((prev) => !prev);
 
     if (prevCardFlipped.current === null && text === 1 || (prevCardFlipped.current + 1 === text)) {
+      if (prevCardFlipped.current + 1 === maxNumber) {
+        setBoardVisible(false);
+        setLevelComplete(true);
+      }
       prevCardFlipped.current = text;
-      // if (prevCardFlipped.current === maxNumber) {
-      //   setBoardVisible(false);
-      // }
     } else {
       setLives((prevLives) => (prevLives > 0 ? prevLives - 1 : 0));
       setBoardVisible(false);
@@ -48,7 +49,7 @@ function Card( { text, maxNumber, isVisible=true, prevCardFlipped=null, setBoard
   );
 }
 
-function Board({ maxNumber, setWinLose }) {
+function Board({ level, maxNumber, setWinLose }) {
   function handleStart() {
     setIsFlipping(false);
     setBoardVisible(true);
@@ -59,22 +60,24 @@ function Board({ maxNumber, setWinLose }) {
     setTimeout(() => {
       setVisibleCard(null);
     }, 10000);
-
-    clearInterval();
   }
 
   function handleLives() {
+    getNewCardsArray();
     setBoardVisible(true);
     setVisibleTimer(true);
     setShowAllCards(true);
-    setGridArray(initialValues.gridArray);
-    setNumberIndices(initialValues.numberIndices);
   }
 
-  // Generate cardsArray and randomly populate gridArray once using useMemo
-  // only recompute if maxNumber or totalCells change
-  const totalCells = 36;
-  const initialValues = useMemo(() => {
+  function restart() {
+    setWinLose(0);
+  }
+
+  function nextLevel() {
+    setWinLose((prev) => prev + 1);
+  }
+
+  function generateInitialValues() {
     const cardsArray = Array.from({ length: maxNumber }, (_, i) => i + 1);
     const gridArray = Array.from({ length: totalCells }, () => null);
     const numberIndices = []; // Store indices where numbers are placed to be used for visibility
@@ -89,12 +92,24 @@ function Board({ maxNumber, setWinLose }) {
       numberIndices.push(randomIndex);
     });
 
-    return { gridArray, numberIndices };
-  }, [maxNumber, totalCells]);
+    return {gridArray, numberIndices};
+  }
+
+  // Generate cardsArray and randomly populate gridArray once using useMemo
+  // only recompute if maxNumber or totalCells change
+  const totalCells = 36;
+  const initialValues = useMemo(generateInitialValues, [maxNumber, totalCells]);
 
   const [gridArray, setGridArray] = useState(initialValues.gridArray);
   const [numberIndices, setNumberIndices] = useState(initialValues.numberIndices);
-  
+
+  const getNewCardsArray = useCallback(() => {
+    const newValues = generateInitialValues();
+    setGridArray(newValues.gridArray);
+    setNumberIndices(newValues.numberIndices);
+  }, [maxNumber, totalCells]);
+
+
   // visual board + interval
   const [visibleCard, setVisibleCard] = useState(0);
   const [isFlipping, setIsFlipping] = useState(true);
@@ -132,6 +147,8 @@ function Board({ maxNumber, setWinLose }) {
     }
   });
 
+  const [levelComplete, setLevelComplete] = useState(false);
+
 
   return (
     <>
@@ -143,7 +160,7 @@ function Board({ maxNumber, setWinLose }) {
                 <Card text={value} maxNumber={maxNumber} />
               </div>
             ))}
-            <button className='start-btn' onClick={handleStart}>Start</button>
+            <button className='start-btn' onClick={handleStart}>Level {level}: Start</button>
           </div>
         </div>
       )}
@@ -165,6 +182,7 @@ function Board({ maxNumber, setWinLose }) {
                         prevCardFlipped={prevCardFlipped}
                         setBoardVisible={setBoardVisible}
                         setLives={setLives}
+                        setLevelComplete={setLevelComplete}
                       />
                     </div>
                   ))}
@@ -174,15 +192,26 @@ function Board({ maxNumber, setWinLose }) {
           )}
 
           {!boardVisible && (
-            <div className='lives-container'>
-              <div>Lives left: {lives}</div>
-              {lives > 0 && (
-                <button onClick={handleLives}>Continue</button>
-              )}
-              {lives === 0 && (
-                <button>Restart</button>
-              )}
-            </div>
+            <>
+            {!levelComplete && (
+                <div className='lives-container'>
+                  <div>Lives left: {lives}</div>
+                {lives > 0 && (
+                    <button onClick={handleLives}>Continue</button>
+                )}
+                {lives === 0 && (
+                    <button onClick={restart}>Restart</button>
+                )}
+                </div>
+            )}
+
+            {levelComplete && (
+                <div className='lives-container'>
+                  <div>Level Complete!</div>
+                  <button onClick={nextLevel}>Continue</button>
+                </div>
+            )}
+            </>
           )}
         </>
       )}

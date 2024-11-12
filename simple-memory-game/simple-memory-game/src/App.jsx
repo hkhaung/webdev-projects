@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import './App.css'
 import Level from './components/Level/Level';
 
@@ -7,14 +7,19 @@ function App() {
   const [level, setLevel] = useState(0);
 
   useEffect(() => {
-    if (winLose === 1) {
+    console.log(winLose);
+    if (winLose >= 1) {
+      console.log('hey', level);
       setLevel((prevLevel) => prevLevel + 1);
+      console.log('hey1', level);
+    } else if (winLose === 0) {
+      setLevel(0);
     }
   }, [winLose]);
 
   return (
     <>
-      <Level level={level} setWinLose={setWinLose} />
+      <Level key={winLose} level={level} setWinLose={setWinLose} />
     </>
   )
 }
