@@ -1,17 +1,15 @@
-import {useState, useEffect, useCallback} from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'
 import Level from './components/Level/Level';
+import Board from './components/Board/Board';
 
 function App() {
   const [winLose, setWinLose] = useState(null);
   const [level, setLevel] = useState(0);
 
   useEffect(() => {
-    console.log(winLose);
     if (winLose >= 1) {
-      console.log('hey', level);
       setLevel((prevLevel) => prevLevel + 1);
-      console.log('hey1', level);
     } else if (winLose === 0) {
       setLevel(0);
     }
@@ -19,7 +17,8 @@ function App() {
 
   return (
     <>
-      <Level key={winLose} level={level} setWinLose={setWinLose} />
+      {/* <Level key={winLose} level={level} setWinLose={setWinLose} /> */}
+      <Board />
     </>
   )
 }

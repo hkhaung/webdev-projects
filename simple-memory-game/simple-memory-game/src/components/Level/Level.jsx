@@ -16,7 +16,6 @@ function Level({ level=0, setWinLose }) {
   if (level === 0) {
     maxNumber = startNumber;
   } else {
-    console.log(level, typeof(level), 'HEY');
     maxNumber = startNumber + level;
   }
 
