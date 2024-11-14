@@ -88,6 +88,13 @@ Static or plain html/css and javascript projects use the following ports (8080 t
 - (will come back to this later)
 - the plan is to somehow use the api, go through playlists that user owns and specifies, and then reorganize the songs in it to playlists matching its genre/vibe
 
+12. Simple Memory Game
+- done in ReactJS + Vite
+- Took longer than expected due to horrible planning -> imo, you can't just dive right into it even for a simple project like this
+- A lot of problems with showing the game board and not showing the game board and making sure the board stays consistent during the game and changes when the game is over
+- Most of the problems were solved by using separate components ie two boards, one for the game and one for the loading screen
+![website result](simple-memory-game/result.gif)
+
 ## Datastructures and algos:
 I already have a good understanding of datastructures and algorithms but rewrote some datastructures in JS for practice. It's also good review!
 
