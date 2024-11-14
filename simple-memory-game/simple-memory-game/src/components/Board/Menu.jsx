@@ -18,9 +18,16 @@ function Card({ text }) {
 function Menu({ setGameStart, level, maxNumber }) {
   const [visibleCard, setVisibleCard] = useState(0);
   const totalCells = 36;
+
   const initialValues = generateInitialValues(totalCells, maxNumber);
-  const gridArray = initialValues.gridArray;
-  const numberIndices = initialValues.numberIndices;
+  const [gridArray, setGridArray] = useState(initialValues.gridArray);
+  const [numberIndices, setNumberIndices] = useState(initialValues.numberIndices);
+
+  useEffect(() => {
+    const newValues = generateInitialValues(totalCells, maxNumber);
+    setGridArray(newValues.gridArray);
+    setNumberIndices(newValues.numberIndices);
+  }, [maxNumber]);
 
   // Handle card flipping and visibility interval
   useEffect(() => {
