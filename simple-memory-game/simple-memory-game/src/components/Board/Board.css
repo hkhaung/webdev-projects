@@ -79,6 +79,8 @@
 
 /* show and hide start btn hover */
 .start-btn {
+  font-size: 50px;
+  border-radius: 25px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -86,6 +88,7 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 
 .hover-enabled:hover .start-btn {
   opacity: 1;

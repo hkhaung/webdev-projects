@@ -1,13 +1,10 @@
-import {useEffect, useState, useMemo, useRef, useCallback} from 'react';
+import {useEffect, useState} from 'react';
 import './Board.css';
 import {generateInitialValues} from "./helpers.js";
 
 
-// Board component will just have game logic instead of both game and menu logic
-// menu logic will be in a separate component that is similar to board component
 // losing lives/going to the next level will be all done in Board component
 // we will have a component that calls Board and Menu components
-
 function TimerBar({isVisible}) {
   return (
     <div className={`timerbar ${isVisible ? 'visible' : 'hidden'}`}>

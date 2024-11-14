@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import './Level.css';
 import Board from '../Board/Board';
 import Menu from '../Board/Menu';
 
@@ -9,7 +8,6 @@ the other will be the actual game board
 
 The visual/idle board will show random cards and the cards will flip in an interval sequentially
 When hovered, it will show a start button and when clicked, idle board will disappear.
-
 */
 function Level() {
   const [winLose, setWinLose] = useState(null);
