@@ -7,7 +7,9 @@ import SearchAndDisplay from "./components/SearchAndDisplay/SearchAndDisplay.jsx
 function App() {
   return (
     <>
-      <SearchAndDisplay />
+      <div>
+        <SearchAndDisplay />
+      </div>
     </>
   )
 }
