@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
+
 function Navbar() {
   return (
     <>
       <nav className="navbar bg-white border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="" className="flex items-center space-x-4">
+          <Link to="/" className="flex items-center space-x-4">
             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="41" fill="none" viewBox="0 0 54 41">
               <path fill="#2A2E4E" d="M54 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"></path>
               <path fill="#2A2E4E" fillRule="evenodd"
@@ -14,17 +16,15 @@ function Navbar() {
                     clipRule="evenodd"></path>
             </svg>
             <span className="self-center text-2xl font-semibold whitespace-nowrap">Search and Cart</span>
-          </a>
+          </Link>
 
-          <a href="#" className="flex items-center text-gray-600">
+          <Link to="/cart" className="flex items-center text-gray-600">
             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="32" fill="currentColor" className="bi bi-cart hover:fill-current hover:text-black transition duration-300 ease-in-out"
                  viewBox="0 0 16 16">
               <path
                 d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
             </svg>
-          </a>
-
-
+          </Link>
         </div>
       </nav>
     </>
