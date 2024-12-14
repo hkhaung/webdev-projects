@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from "react-router-dom";
 
 const items = [
   {
@@ -104,7 +105,7 @@ function Cart() {
         <div className="font-bold">TOTAL</div>
 
         <div className="font-bold">{items.length} Items</div>
-        <div className="font-bold">$327.98</div>
+        <div className="font-bold text-right">$327.98</div>
 
         {items.map((item, i) => (
           <Item
@@ -116,20 +117,23 @@ function Cart() {
           />
         ))}
 
-        <button>Continue Shopping</button>
-
         <div className="font-bold row-start-4 col-start-5">SHIPPING</div>
-        <div className="row-start-5 col-start-5">dropdown menu</div>
+        <div className="row-start-5 col-start-5 col-span-2 flex justify-center">
+          <button>dropdown menu</button>
+        </div>
         <div className="row-start-6 col-start-5 col-span-2">
           <hr className="border-gray-300"/>
         </div>
         <div className="row-start-7 col-start-5 font-bold">TOTAL COST</div>
-        <div className="row-start-7 col-start-6 font-bold">$500.12</div>
-        <div className="row-start-8 col-start-5">
-          <button>CHECKOUT</button>
+        <div className="row-start-7 col-start-6 font-bold text-right">$500.12</div>
+        <div className="row-start-8 col-start-5 col-span-2 flex justify-center">
+          <button className="w-full bg-blue-500 rounded p-2 font-bold text-white hover:bg-blue-700 transition duration-300 ease-in-out">CHECKOUT</button>
         </div>
 
       </div>
+
+      <Link to="/" className="font-bold text-blue-500">Continue Shopping</Link>
+
 
     </>
   )
