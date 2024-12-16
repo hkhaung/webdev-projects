@@ -2,6 +2,8 @@
 // search bar to search for products
 // card display to show products
 
+import Navbar from "../Navbar/Navbar.jsx";
+
 function Search({numProducts=50} ) {
   return (
     <>
@@ -76,6 +78,7 @@ function SearchAndDisplay() {
   return (
     <>
       <div>
+        <Navbar />
         <div className="flex flex-col justify-center items-center gap-1 p-8 lg:p-20">
           <Search />
           <CardsDisplay />
