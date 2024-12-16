@@ -3,8 +3,9 @@
 // card display to show products
 
 import Navbar from "../Navbar/Navbar.jsx";
+import {useEffect, useState} from "react";
 
-function Search({numProducts=50} ) {
+function Search({ numProducts=50, products } ) {
   return (
     <>
       <div className="searchbar-container">
@@ -53,7 +54,7 @@ function Card({imgSrc, title = "Title", description = "description", category = 
   )
 }
 
-function CardsDisplay() {
+function CardsDisplay({ products }) {
   return (
       <>
         <div className="display-container mt-8">
@@ -75,13 +76,22 @@ function CardsDisplay() {
 
 
 function SearchAndDisplay() {
+  const [productsArr, setProductsArr] = useState([]);
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(data => {setProductsArr(data);})
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+
   return (
     <>
       <div>
         <Navbar />
         <div className="flex flex-col justify-center items-center gap-1 p-8 lg:p-20">
-          <Search />
-          <CardsDisplay />
+          <Search products={productsArr} />
+          <CardsDisplay products={productsArr} />
         </div>
       </div>
     </>
