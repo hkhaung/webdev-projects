@@ -62,7 +62,7 @@ function RangeInput({ starting=1, min=1, max=100 }) {
       <div className="flex items-center gap-2">
         <button onClick={handleDecrement} className="bg-gray-100 px-2 rounded hover:bg-gray-200 transition duration-300 ease-in-out" disabled={value <= min}>-</button>
         <input type="text" value={value} onChange={handleInputChange} className="border rounded text-center w-12" />
-        <button onClick={handleIncrement} className="bg-gray-100 px-2 rounded hover:bg-gray-200 transition duration-300 ease-in-out" disabled={value >= max}>+</button>
+        <button onClick={handleIncrement} className="bg-gray-200 px-2 rounded hover:bg-gray-200 transition duration-300 ease-in-out" disabled={value >= max}>+</button>
       </div>
     </>
   )
@@ -99,10 +99,10 @@ function Cart() {
           <hr className="border-gray-300"/>
         </div>
 
-        <div className="font-bold">PRODUCT</div>
-        <div className="font-bold">QUANTITY</div>
-        <div className="font-bold">PRICE</div>
-        <div className="font-bold">TOTAL</div>
+        <div className="font-bold text-gray-400">PRODUCT</div>
+        <div className="font-bold text-gray-400">QUANTITY</div>
+        <div className="font-bold text-gray-400">PRICE</div>
+        <div className="font-bold text-gray-400">TOTAL</div>
 
         <div className="font-bold">{items.length} Items</div>
         <div className="font-bold text-right">$327.98</div>
@@ -119,7 +119,10 @@ function Cart() {
 
         <div className="font-bold row-start-4 col-start-5">SHIPPING</div>
         <div className="row-start-5 col-start-5 col-span-2 flex justify-center">
-          <button>dropdown menu</button>
+          <select name="shipping" id="shipping-dropdown" className="w-full text-center bg-gray-100 p-2 rounded cursor-pointer focus:outline-none focus:ring-2 focus:border-blue-500 hover:bg-gray-200 transition duration-300 ease-in-out">
+            <option value="standard" className="rounded">Standard shipping</option>
+            <option value="same-day">Same day shipping</option>
+          </select>
         </div>
         <div className="row-start-6 col-start-5 col-span-2">
           <hr className="border-gray-300"/>
@@ -127,12 +130,21 @@ function Cart() {
         <div className="row-start-7 col-start-5 font-bold">TOTAL COST</div>
         <div className="row-start-7 col-start-6 font-bold text-right">$500.12</div>
         <div className="row-start-8 col-start-5 col-span-2 flex justify-center">
-          <button className="w-full bg-blue-500 rounded p-2 font-bold text-white hover:bg-blue-700 transition duration-300 ease-in-out">CHECKOUT</button>
+          <button className="w-full bg-blue-500 rounded p-4 font-bold text-white shadow-blue-400 shadow-lg hover:bg-blue-700 transition duration-300 ease-in-out">CHECKOUT</button>
         </div>
 
       </div>
 
-      <Link to="/" className="font-bold text-blue-500">Continue Shopping</Link>
+      <Link to="/" className="font-bold text-blue-500">
+        <div className="flex items-center gap-2 px-12 hover:text-blue-600 transition duration-300 ease-in-out">
+          <svg fill="currentColor" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 404.258 404.258" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="2"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier"> <polygon
+            points="289.927,18 265.927,0 114.331,202.129 265.927,404.258 289.927,386.258 151.831,202.129 "></polygon> </g></svg>
+        <span>Continue Shopping</span>
+        </div>
+      </Link>
 
 
     </>
