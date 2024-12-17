@@ -5,26 +5,26 @@
 import Navbar from "../Navbar/Navbar.jsx";
 import {useEffect, useState} from "react";
 
-function Search({ products, setProductsArr } ) {
+function Search({ originalProducts=[], products=[], setQueryArr } ) {
   function handleQuery(e) {
     const query = e.target.value.trim();
-    setSearchQuery(query);
+    // setSearchQuery(query);
 
     if (query === "") {
-      setProductsArr(products);
-      setNumProducts(products.length);
+      setQueryArr(originalProducts);
+      setNumProducts(originalProducts.length);
       return;
     }
 
     const filteredProductsArr = products.filter((product) =>
       product.title.toLowerCase().includes(query.toLowerCase())
     );
-    setProductsArr(filteredProductsArr);
+    setQueryArr(filteredProductsArr);
     setNumProducts(filteredProductsArr.length);
   }
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [numProducts, setNumProducts] = useState(products.length);
+  // const [searchQuery, setSearchQuery] = useState("");
+  const [numProducts, setNumProducts] = useState(originalProducts.length);
 
   return (
     <>
@@ -81,7 +81,7 @@ function Card({imgSrc="", title = "Title", description = "description", category
   )
 }
 
-function CardsDisplay({ products }) {
+function CardsDisplay({ products=[] }) {
   return (
       <>
         <div className="display-container mt-8">
@@ -98,11 +98,15 @@ function CardsDisplay({ products }) {
 
 function SearchAndDisplay() {
   const [productsArr, setProductsArr] = useState([]);
+  const [queryArr, setQueryArr] = useState([]);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then(res => res.json())
-      .then(data => {setProductsArr(data);})
+      .then(data => {
+        setProductsArr(data);
+        setQueryArr(data);
+      })
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
@@ -111,8 +115,8 @@ function SearchAndDisplay() {
       <div>
         <Navbar />
         <div className="flex flex-col justify-center items-center gap-1 p-8 lg:p-20">
-          <Search products={productsArr} setProductsArr={setProductsArr} />
-          <CardsDisplay products={productsArr} />
+          <Search products={queryArr} setQueryArr={setQueryArr} originalProducts={productsArr} />
+          <CardsDisplay products={queryArr} />
         </div>
       </div>
     </>
