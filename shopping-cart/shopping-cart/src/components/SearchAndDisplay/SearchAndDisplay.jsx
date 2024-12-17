@@ -4,11 +4,12 @@
 
 import Navbar from "../Navbar/Navbar.jsx";
 import {useEffect, useState} from "react";
+import './SearchAndDisplay.css';
+
 
 function Search({ originalProducts=[], products=[], setQueryArr } ) {
   function handleQuery(e) {
     const query = e.target.value.trim();
-    // setSearchQuery(query);
 
     if (query === "") {
       setQueryArr(originalProducts);
@@ -23,8 +24,14 @@ function Search({ originalProducts=[], products=[], setQueryArr } ) {
     setNumProducts(filteredProductsArr.length);
   }
 
-  // const [searchQuery, setSearchQuery] = useState("");
   const [numProducts, setNumProducts] = useState(originalProducts.length);
+  useEffect(() => {
+    if (originalProducts.length > 0) {
+      setNumProducts(originalProducts.length);
+    } else {
+      setNumProducts(15); // Default value
+    }
+  }, [originalProducts]);
 
   return (
     <>
@@ -124,24 +131,51 @@ function CardsDisplay({ products=[] }) {
 function SearchAndDisplay() {
   const [productsArr, setProductsArr] = useState([]);
   const [queryArr, setQueryArr] = useState([]);
+  const [isLoading, setIsLoading] =useState(true);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-      .then(res => res.json())
-      .then(data => {
-        setProductsArr(data);
-        setQueryArr(data);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
+  useEffect( () => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://fakestoreapi.com/products/');
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        return response.json();
+      } catch (error) {
+        setError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData().then(result => {
+      setProductsArr(result);
+      setQueryArr(result);
+    });
+  },[]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="loader"></div>
+      </div>
+  )
+  }
+
+  if (error) {
+    return (
+      <div>Could not fetch data...</div>
+    )
+  }
 
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar/>
         <div className="flex flex-col justify-center items-center gap-1 p-8 lg:p-20">
-          <Search products={queryArr} setQueryArr={setQueryArr} originalProducts={productsArr} />
-          <CardsDisplay products={queryArr} />
+          <Search products={queryArr} setQueryArr={setQueryArr} originalProducts={productsArr}/>
+          <CardsDisplay products={queryArr}/>
         </div>
       </div>
     </>
