@@ -5,7 +5,27 @@
 import Navbar from "../Navbar/Navbar.jsx";
 import {useEffect, useState} from "react";
 
-function Search({ numProducts=50, products } ) {
+function Search({ products, setProductsArr } ) {
+  function handleQuery(e) {
+    const query = e.target.value.trim();
+    setSearchQuery(query);
+
+    if (query === "") {
+      setProductsArr(products);
+      setNumProducts(products.length);
+      return;
+    }
+
+    const filteredProductsArr = products.filter((product) =>
+      product.title.toLowerCase().includes(query.toLowerCase())
+    );
+    setProductsArr(filteredProductsArr);
+    setNumProducts(filteredProductsArr.length);
+  }
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [numProducts, setNumProducts] = useState(products.length);
+
   return (
     <>
       <div className="searchbar-container">
@@ -17,7 +37,9 @@ function Search({ numProducts=50, products } ) {
             <input
               type="text"
               placeholder="Search for items in store here..."
-              className="w-full p-2 border border-gray-300 rounded-md text-slate-700 placeholder:text-slate-400 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"/>
+              className="w-full p-2 border border-gray-300 rounded-md text-slate-700 placeholder:text-slate-400 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+              onChange={handleQuery}
+            />
           </form>
         </div>
       </div>
@@ -25,23 +47,28 @@ function Search({ numProducts=50, products } ) {
   )
 }
 
-function Card({imgSrc, title = "Title", description = "description", category = "category"}) {
+function Card({imgSrc="", title = "Title", description = "description", category = "category", price=99.99 }) {
   return (
     <>
       <div
           className="card-container border rounded-lg shadow-md pb-8 w-full max-w-[20rem] group/default hover:bg-slate-100">
         <div className="group-hover/default:hidden">
-          <img src={imgSrc} alt={`${title} image`} className="w-full min-h-[13.5rem] object-cover rounded-t-lg"/>
+          <img src={imgSrc} alt={`${title} image`}
+               className="w-full min-h-[13.5rem] max-h-[13.5rem] object-contain mt-4"/>
           <div className="info mt-5 px-4 min-h-[12rem] max-h-[12rem]">
-            <div className="title font-medium text-xl">{title}</div>
-            <div className="description mt-1 text-gray-600 line-clamp-5 min-h-[7.5rem]">{description}</div>
-            <div className="category mt-8 text-sm text-gray-600 italic">{category}</div>
+            <div className="title font-medium text-xl line-clamp-2 break-words">{title}</div>
+            <div className="description mt-1 text-gray-600 line-clamp-5 break-words">{description}</div>
+          </div>
+          <div className="category-price-container flex justify-between px-4 mt-2 text-sm text-gray-600">
+            <div className="category italic">{category}</div>
+            <div className="price text-base font-bold">${price}</div>
           </div>
         </div>
 
         <div className="transition-opacity duration-300 ease-in opacity-0 group-hover/default:opacity-100">
-          <div className="hidden group-hover/default:flex items-center justify-center h-full min-h-[26.5rem] md:min-h-[24.5rem]">
-            <div className="flex flex-col items-center justify-center space-y-4">
+          <div
+            className="hidden group-hover/default:flex items-center justify-center h-full min-h-[26.5rem] md:min-h-[24.5rem]">
+          <div className="flex flex-col items-center justify-center space-y-4">
               <button className="add-to-cart-btn w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">Add to cart</button>
               <button className="remove-from-cart-btn w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out">Remove from cart</button>
             </div>
@@ -59,15 +86,9 @@ function CardsDisplay({ products }) {
       <>
         <div className="display-container mt-8">
           <div className="cards-container grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
-            <Card imgSrc="https://placehold.co/600x400"
-                  description="Lorem ipsum odor amet, consectetuer adipiscing elit. Metus natoque tempor lobortis vivamus suspendisse nisl; etiam ultricies ad. Risus est ex consequat libero enim dui venenatis interdum." />
-          <Card imgSrc="https://placehold.co/1920x1080" />
-          <Card imgSrc="https://placehold.co/1280x720" />
-          <Card imgSrc="https://placehold.co/600x400" />
-          <Card imgSrc="https://placehold.co/600x400" />
-          <Card imgSrc="https://placehold.co/600x400" />
-          <Card imgSrc="https://placehold.co/600x400" />
-          <Card imgSrc="https://placehold.co/600x400" />
+            {products.map((product) => (
+              <Card key={product.id} imgSrc={product.image} title={product.title} description={product.description} category={product.category} price={product.price} />
+            ))}
         </div>
       </div>
     </>
@@ -90,7 +111,7 @@ function SearchAndDisplay() {
       <div>
         <Navbar />
         <div className="flex flex-col justify-center items-center gap-1 p-8 lg:p-20">
-          <Search products={productsArr} />
+          <Search products={productsArr} setProductsArr={setProductsArr} />
           <CardsDisplay products={productsArr} />
         </div>
       </div>
