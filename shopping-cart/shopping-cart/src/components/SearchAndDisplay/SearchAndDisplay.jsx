@@ -47,7 +47,34 @@ function Search({ originalProducts=[], products=[], setQueryArr } ) {
   )
 }
 
-function Card({imgSrc="", title = "Title", description = "description", category = "category", price=99.99 }) {
+function Card({ itemID="", imgSrc="", title = "Title", description = "description", category = "category", price=99.99 }) {
+  function handleAddToCart() {
+    if (!itemID) {
+      return;
+    }
+
+    const count = localStorage.getItem(itemID);
+    if (count === null) {
+      localStorage.setItem(itemID, 1);
+    } else {
+      localStorage.setItem(itemID, (parseInt(count) + 1).toString());
+    }
+  }
+
+  function handleRemoveFromCart() {
+    if (!itemID) {
+      return;
+    }
+
+    let count = localStorage.getItem(itemID);
+    count = parseInt(count);
+    if (count && count > 0) {
+      localStorage.setItem(itemID, (count - 1).toString());
+    } else if (count === 0) {
+      localStorage.removeItem(itemID);
+    }
+  }
+
   return (
     <>
       <div
@@ -69,13 +96,11 @@ function Card({imgSrc="", title = "Title", description = "description", category
           <div
             className="hidden group-hover/default:flex items-center justify-center h-full min-h-[26.5rem] md:min-h-[24.5rem]">
           <div className="flex flex-col items-center justify-center space-y-4">
-              <button className="add-to-cart-btn w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">Add to cart</button>
-              <button className="remove-from-cart-btn w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out">Remove from cart</button>
+              <button className="add-to-cart-btn w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition duration-300 ease-in-out" onClick={handleAddToCart}>Add to cart</button>
+              <button className="remove-from-cart-btn w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300 ease-in-out" onClick={handleRemoveFromCart}>Remove from cart</button>
             </div>
           </div>
         </div>
-
-
       </div>
     </>
   )
@@ -87,7 +112,7 @@ function CardsDisplay({ products=[] }) {
         <div className="display-container mt-8">
           <div className="cards-container grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
             {products.map((product) => (
-              <Card key={product.id} imgSrc={product.image} title={product.title} description={product.description} category={product.category} price={product.price} />
+              <Card key={product.id} itemID={product.id} imgSrc={product.image} title={product.title} description={product.description} category={product.category} price={product.price} />
             ))}
         </div>
       </div>
