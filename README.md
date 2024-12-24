@@ -82,7 +82,7 @@ Static or plain html/css and javascript projects use the following ports (8080 t
 10. Todo List
 - animations on some components would make this look better
 - currently uses local storage -> would be better to have a backend
-- TODO: add result picture
+![website result](quest-board/result.png)
 
 11. Spotify API
 - (will come back to this later)
@@ -94,6 +94,12 @@ Static or plain html/css and javascript projects use the following ports (8080 t
 - A lot of problems with showing the game board and not showing the game board and making sure the board stays consistent during the game and changes when the game is over
 - Most of the problems were solved by using separate components ie two boards, one for the game and one for the loading screen
 ![website result](simple-memory-game/result.gif)
+
+13. Shopping Cart
+- done in ReactJS + Vite
+- uses an API to fetch sample/fake store items
+- problems: did not implement media queries/responsiveness on cart page, used local storage
+![website result](shopping-cart/result.gif)
 
 ## Datastructures and algos:
 I already have a good understanding of datastructures and algorithms but rewrote some datastructures in JS for practice. It's also good review!
