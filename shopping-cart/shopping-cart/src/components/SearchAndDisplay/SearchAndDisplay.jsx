@@ -60,11 +60,11 @@ function Card({ itemID="", imgSrc="", title = "Title", description = "descriptio
       return;
     }
 
-    const count = localStorage.getItem(itemID);
-    if (count === null) {
-      localStorage.setItem(itemID, 1);
+    const value = JSON.parse(localStorage.getItem(itemID));
+    if (value === null) {
+      localStorage.setItem(itemID, JSON.stringify({count: 1, title: title, price: price}));
     } else {
-      localStorage.setItem(itemID, (parseInt(count) + 1).toString());
+      localStorage.setItem(itemID, JSON.stringify({count: value.count + 1, title: title, price: price}));
     }
   }
 
@@ -73,11 +73,11 @@ function Card({ itemID="", imgSrc="", title = "Title", description = "descriptio
       return;
     }
 
-    let count = localStorage.getItem(itemID);
-    count = parseInt(count);
-    if (count && count > 0) {
-      localStorage.setItem(itemID, (count - 1).toString());
-    } else if (count === 0) {
+    let value = JSON.parse(localStorage.getItem(itemID));
+    if (value && value.count > 0) {
+      value.count = value.count - 1;
+      localStorage.setItem(itemID, JSON.stringify(value));
+    } else if (value.count === 0) {
       localStorage.removeItem(itemID);
     }
   }
