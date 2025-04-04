@@ -55,7 +55,7 @@ Static or plain html/css and javascript projects use the following ports (8080 t
 
 5. Sign-up form (not connected to backend, done for practice)
 
-6. Dashboard (no backend, done for practice but design used for portfolio website)
+6. Dashboard (no backend, done for practice but design could be used for portfolio website)
 - problem: responsiveness (items in grid go out of the grid when window size becomes smaller)
 - problem: text in flexbox (can't put a lot otherwise will push buttons outside the textbox)
 - basically had to hardcode which is not good and website only looks good at 1980x1080
@@ -91,8 +91,8 @@ Static or plain html/css and javascript projects use the following ports (8080 t
 12. Simple Memory Game
 - done in ReactJS + Vite
 - Took longer than expected due to horrible planning -> imo, you can't just dive right into it even for a simple project like this
-- A lot of problems with showing the game board and not showing the game board and making sure the board stays consistent during the game and changes when the game is over
-- Most of the problems were solved by using separate components ie two boards, one for the game and one for the loading screen
+- A lot of problems with showing the game board and not showing the game board and making sure the board stays consistent during the game and changes when the game is over:
+    - Most of the problems were solved by using separate components ie two boards, one for the game and one for the loading screen
 ![website result](simple-memory-game/result.gif)
 
 13. Shopping Cart
@@ -115,3 +115,4 @@ Datastructures implemented:
 ## Credits:
 - fonts are from Google Fonts
 - images are from unsplash, freepik, and others are saved from google search
+- project ideas are from [here](https://www.theodinproject.com/) and built on top of them
